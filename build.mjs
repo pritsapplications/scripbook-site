@@ -186,29 +186,29 @@ footer a{color:var(--accent)}
 </section>
 
 ${sec("how","ink","The idea","A month you can read in two seconds",
-"You already think about money in weeks and months. Rent lands here, payday lands there, the expensive weekend was that one. A list flattens all of that. A calendar does not.",
+"You already think about money in weeks and months. Rent lands here, payday lands there, the expensive weekend was that one. A list flattens all of that. A calendar doesn't.",
 `<div class="grid reveal d2">
-  <div class="card"><h3>Spending sits on its day</h3><p>Coloured by category, so a heavy week is obvious without reading a single number.</p></div>
-  <div class="card"><h3>Bills turn up on their own</h3><p>Add rent or a subscription once. It appears on every date it is due, forever.</p></div>
-  <div class="card"><h3>Still want a list?</h3><p>It is right there in the next tab. We are not going to be weird about it.</p></div>
+  <div class="card"><h3>Spending sits on its day</h3><p>Colored by category, so a heavy week is obvious without reading a single number.</p></div>
+  <div class="card"><h3>Bills turn up on their own</h3><p>Add rent or a subscription once. It appears on every date it's due, forever.</p></div>
+  <div class="card"><h3>Still want a list?</h3><p>It's right there in the next tab. We're not going to be weird about it.</p></div>
 </div>`)}
 
 ${sec("heat","red","Spot it instantly","You will see it before you read it",
-"Every day is tinted by how much went out, green through to red, scaled against your own month. You will spot a bad week before you have read a single figure.",
+"Every day is tinted by how much went out, green through to red, scaled against your own month. You'll spot a bad week before you've read a single figure.",
 heatGrid())}
 
 ${sec("privacy","black","Your data","Nothing leaves your phone",
 "No accounts. No servers. No analytics. No bank logins.",
-`<div class="reveal d2"><p class="big">We could not see your spending if we wanted to.
-<span>There is nowhere for it to go.</span></p>
+`<div class="reveal d2"><p class="big">We couldn't see your spending if we wanted to.
+<span>There's nowhere for it to go.</span></p>
 <ul class="plain">
-  <li><span class="no">✕</span><span>No sign-up, because there is <b>no account to sign up for</b></span></li>
-  <li><span class="no">✕</span><span>No linking your bank. We never ask for <b>credentials we should not have</b></span></li>
-  <li><span class="no">✕</span><span>No trackers, no ads, no anonymous usage data that <b>is not very anonymous</b></span></li>
+  <li><span class="no">✕</span><span>No sign-up, because there's <b>no account to sign up for</b></span></li>
+  <li><span class="no">✕</span><span>No linking your bank. We never ask for <b>credentials we shouldn't have</b></span></li>
+  <li><span class="no">✕</span><span>No trackers, no ads, no anonymous usage data that <b>isn't very anonymous</b></span></li>
   <li><span class="yes">✓</span><span>Everything stays in the app and <b>leaves only when you export it</b></span></li>
 </ul></div>`)}
 
-${sec("streak","green","How it treats you","A streak that is not a trap",
+${sec("streak","green","How it treats you","A streak that isn't a trap",
 "It counts days you kept track, not days you spent less. Logging a big expense keeps it alive exactly as well as spending nothing. Miss a day and it survives.",
 `<div class="reveal d2">${streakNum(28)}</div>
 <div class="grid reveal d3">
@@ -217,7 +217,7 @@ ${sec("streak","green","How it treats you","A streak that is not a trap",
   <div class="card"><h3>No nagging</h3><p>No notifications begging you to come back. The app waits.</p></div>
 </div>`)}
 
-${sec("yours","purple","Make it yours","A finance app you do not dread opening",
+${sec("yours","purple","Make it yours","A finance app you don't dread opening",
 "Sixteen palettes, six fonts, three shapes. Pick your look before you enter a single expense. Every combination is contrast-checked, so it stays readable no matter what you choose.",
 `<div class="swatches reveal d2">
 ${["#E8C547","#E8944A","#E05252","#E88BA8","#A78BE8","#5B9BD5","#6FBF8B","#FFF8E1","#121212","#ECECEC","#C9A24B","#D8A94A"]
@@ -227,14 +227,14 @@ ${["#E8C547","#E8944A","#E05252","#E88BA8","#A78BE8","#5B9BD5","#6FBF8B","#FFF8E
 ${sec("why","brown","Why it exists","I built the app I wanted to use",
 "Every budget app I tried wanted my bank logins and my spending history before it would show me anything. That felt like a lot to hand over just to find out where my money went.",
 `<div class="reveal d2"><p class="lede" style="margin-top:20px">So this one keeps everything on your phone.
-Not as a feature to put on a list, but because I did not want my own data sitting on somebody else's
-server either. You get to be exactly as private with it as I am.</p>
-<p class="lede" style="margin-top:20px">The calendar came from the same place. I am a visual learner.
-A column of numbers tells me nothing, but a month with colour on it tells me everything. If you think
+Not as a feature to put on a list, but because I didn't want my own data sitting on somebody else's
+server. You get to be exactly as private with it as I am.</p>
+<p class="lede" style="margin-top:20px">The calendar came from the same place. I'm a visual learner.
+A column of numbers tells me nothing, but a month with color on it tells me everything. If you think
 the same way, this was built for you too.</p></div>`)}
 
-${sec("price","gold","The price","Free. Here is the catch: there is not one.",
-"No trial, no paywalled pro features, no subscription appearing in six months. There is no server to pay for and no data to sell, which makes free surprisingly easy. If you like it, there is a tip jar. That is the whole business model.",
+${sec("price","gold","The price","Free. Here's the catch: there isn't one.",
+"No trial, no paywalled pro features, no subscription appearing in six months. There's no server to pay for and no data to sell, which makes free surprisingly easy. If you like it, there's a tip jar. That's the whole business model.",
 `<div class="reveal d2" style="margin-top:34px"><div class="cta">
   <a class="btn" href="#">Coming soon</a>
   <a class="btn ghost" href="https://ko-fi.com/pritsapps">Tip jar</a>
