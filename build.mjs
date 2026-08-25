@@ -301,15 +301,20 @@ ${scrollCue()}
   // The cue has done its job the moment they move, so it retires on first scroll.
   var cue = document.getElementById('cue');
   var prog = document.getElementById('prog');
+  var last = document.getElementById('price');
   function onScroll(){
     var y = window.scrollY;
     var max = document.body.scrollHeight - window.innerHeight;
     prog.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
-    cue.classList.toggle('gone', y > 60);
+    cue.classList.toggle('gone', last.getBoundingClientRect().top < window.innerHeight * 0.6);
   }
   window.addEventListener('scroll', onScroll, { passive:true });
   onScroll();
-  function jump(){ document.getElementById('how').scrollIntoView({ behavior:'smooth' }); }
+  function jump(){
+    for(var i=0;i<secs.length;i++){
+      if(secs[i].offsetTop > window.scrollY + 40){ secs[i].scrollIntoView({ behavior:'smooth' }); return; }
+    }
+  }
   cue.addEventListener('click', jump);
   cue.addEventListener('keydown', function(e){
     if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); jump(); }
