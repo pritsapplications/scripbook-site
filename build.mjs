@@ -61,6 +61,18 @@ function streakNum(n){
     `<div class="srow">${r.map(v=>`<b class="${v?"on":"off"}"></b>`).join("")}</div>`).join("")}</div>`;
 }
 
+// A down arrow drawn in the same cell grid as the icon and the streak badge,
+// with the lit cells pulsing top to bottom so the eye is pulled downward.
+function scrollCue(){
+  const on=[[0,2],[1,2],[2,0],[2,2],[2,4],[3,1],[3,2],[3,3],[4,2]];
+  let c="";
+  for(let r=0;r<5;r++)for(let k=0;k<5;k++){
+    const lit=on.some(([a,b])=>a===r&&b===k);
+    c+=`<b class="${lit?"on":""}" style="--r:${r}"></b>`;
+  }
+  return `<div class="cue" id="cue" role="button" tabindex="0" aria-label="Scroll down"><div class="cuegrid">${c}</div></div>`;
+}
+
 const sec = (id, pal, kicker, h2, body, extra="") => `
 <section class="sec" id="${id}" data-bg="${P[pal].bg}" data-surf="${P[pal].surf}" data-accent="${P[pal].accent}">
   <div class="inner">
@@ -161,15 +173,28 @@ transition:opacity .5s,transform .5s;transition-delay:calc(var(--i)*45ms)}
 .big{font-size:clamp(23px,3.6vw,36px);line-height:1.3;font-weight:700;max-width:820px}
 .big span{color:var(--accent);transition:color .8s}
 
+.prog{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:60;transition:width .12s linear,background .8s}
+.cue{position:fixed;left:0;right:0;bottom:26px;display:flex;justify-content:center;z-index:40;
+opacity:0;animation:cueIn .9s ease 1.2s forwards;transition:opacity .4s}
+.cue.gone{opacity:0;pointer-events:none;animation:none}
+.cuegrid{display:grid;grid-template-columns:repeat(5,9px);gap:4px;cursor:pointer;animation:bob 2.6s ease-in-out infinite}
+.cuegrid b{width:9px;height:9px;border-radius:2.5px;background:var(--accent);opacity:.11;transition:background .8s}
+.cuegrid b.on{opacity:.22;animation:pulse 1.7s ease-in-out infinite;animation-delay:calc(var(--r)*.13s)}
+@keyframes cueIn{to{opacity:1}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+@keyframes pulse{0%,58%,100%{opacity:.22}26%{opacity:1}}
+
 footer{padding:80px 30px 100px;text-align:center;color:var(--muted);font-size:14px}
 footer a{color:var(--accent)}
 @media (prefers-reduced-motion:reduce){
   *{transition-duration:.01ms !important;animation-duration:.01ms !important}
   .reveal{opacity:1;transform:none}.day,.sw{opacity:1;transform:none}
+  .cue{opacity:1}.cuegrid b.on{opacity:1}
 }
 </style></head>
 <body>
 
+<div class="prog" id="prog"></div>
 <nav><span style="color:var(--accent)">${mark(30)}</span><span class="nm">ScripBook</span>
 <span class="sp"></span><a href="#why">Why</a></nav>
 
@@ -240,6 +265,8 @@ ${sec("price","gold","The price","Free. Here's the catch: there isn't one.",
   <a class="btn ghost" href="https://ko-fi.com/pritsapps">Tip jar</a>
 </div></div>`)}
 
+${scrollCue()}
+
 <footer>ScripBook. A budgeting app that stays on your phone. &nbsp;·&nbsp;
 <a href="https://pritsapplications.github.io/scripbook-privacy/">Privacy</a></footer>
 
@@ -271,6 +298,22 @@ ${sec("price","gold","The price","Free. Here's the catch: there isn't one.",
   }, { threshold:0.18, rootMargin:'0px 0px -8% 0px' });
   document.querySelectorAll('.reveal,.month,.heat,.snum,.swatches').forEach(function(el){ show.observe(el); });
   document.querySelectorAll('.sec').forEach(function(el){ show.observe(el); });
+  // The cue has done its job the moment they move, so it retires on first scroll.
+  var cue = document.getElementById('cue');
+  var prog = document.getElementById('prog');
+  function onScroll(){
+    var y = window.scrollY;
+    var max = document.body.scrollHeight - window.innerHeight;
+    prog.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+    cue.classList.toggle('gone', y > 60);
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+  function jump(){ document.getElementById('how').scrollIntoView({ behavior:'smooth' }); }
+  cue.addEventListener('click', jump);
+  cue.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); jump(); }
+  });
 })();
 </script>
 </body></html>`;
