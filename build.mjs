@@ -4,14 +4,22 @@ import fs from "node:fs";
 // into it as you arrive. The site demonstrates the customisation feature
 // rather than describing it.
 const P = {
-  gold:   { bg:"#241F14", surf:"#332C1E", accent:"#E8C547" },
-  ink:    { bg:"#101823", surf:"#1C2735", accent:"#5B9BD5" },
-  red:    { bg:"#1F1416", surf:"#2E1F21", accent:"#E05252" },
-  black:  { bg:"#121212", surf:"#1E1E1E", accent:"#6FBF8B" },
-  green:  { bg:"#131F19", surf:"#1F2E25", accent:"#6FBF8B" },
-  purple: { bg:"#1B1729", surf:"#272038", accent:"#A78BE8" },
-  brown:  { bg:"#1E1A17", surf:"#2C2724", accent:"#C9A24B" },
+  gold:   { bg:"#241F14", surf:"#332C1E", accent:"#E8C547", ink:"#F6F3EC" },
+  blue:   { bg:"#101823", surf:"#1C2735", accent:"#5B9BD5", ink:"#F6F3EC" },
+  red:    { bg:"#1F1416", surf:"#2E1F21", accent:"#E05252", ink:"#F6F3EC" },
+  green:  { bg:"#131F19", surf:"#1F2E25", accent:"#6FBF8B", ink:"#F6F3EC" },
+  pink:   { bg:"#241820", surf:"#34252E", accent:"#E88BA8", ink:"#F6F3EC" },
+  purple: { bg:"#1B1729", surf:"#272038", accent:"#A78BE8", ink:"#F6F3EC" },
+  black:  { bg:"#0D0D0D", surf:"#1A1A1A", accent:"#E8C547", ink:"#F2F2F2" },
+  white:  { bg:"#FAF9F6", surf:"#ECEAE4", accent:"#8A6D0B", ink:"#16150F" },
 };
+
+// Secondary text is the ink at 62%, so it stays correct on light and dark alike.
+const muted = (hex) => {
+  const n = parseInt(hex.slice(1), 16);
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, .62)`;
+};
+const attrs = (k) => `data-bg="${P[k].bg}" data-surf="${P[k].surf}" data-accent="${P[k].accent}" data-ink="${P[k].ink}" data-muted="${muted(P[k].ink)}"`;
 
 const S_CELLS=[[0,0],[0,1],[0,2],[1,0],[2,0],[2,1],[2,2],[3,2],[4,0],[4,1],[4,2]];
 const isS=(r,c)=>S_CELLS.some(([a,b])=>a===r&&b===c-1);
@@ -74,7 +82,7 @@ function scrollCue(){
 }
 
 const sec = (id, pal, kicker, h2, body, extra="") => `
-<section class="sec" id="${id}" data-bg="${P[pal].bg}" data-surf="${P[pal].surf}" data-accent="${P[pal].accent}">
+<section class="sec" id="${id}" ${attrs(pal)}>
   <div class="inner">
     <div class="reveal"><div class="kicker">${kicker}</div><h2>${h2}</h2></div>
     <div class="reveal d1"><p class="lede">${body}</p></div>
@@ -89,7 +97,7 @@ const html = `<!doctype html>
 <title>ScripBook: your money, on a calendar</title>
 <meta name="description" content="A budgeting app that puts your spending on a calendar. Nothing leaves your phone. Free, no catch.">
 <style>
-:root{--bg:${P.gold.bg};--surf:${P.gold.surf};--accent:${P.gold.accent};--ink:#F6F3EC;--muted:rgba(246,243,236,.62)}
+:root{--bg:${P.gold.bg};--surf:${P.gold.surf};--accent:${P.gold.accent};--ink:${P.gold.ink};--muted:${muted(P.gold.ink)}}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);overflow-x:hidden;
@@ -198,7 +206,7 @@ footer a{color:var(--accent)}
 <nav><span style="color:var(--accent)">${mark(30)}</span><span class="nm">ScripBook</span>
 <span class="sp"></span><a href="#why">Why</a></nav>
 
-<section class="sec hero" data-bg="${P.gold.bg}" data-surf="${P.gold.surf}" data-accent="${P.gold.accent}">
+<section class="sec hero" ${attrs("gold")}>
   <div class="inner">
     <div class="reveal in"><h1>Your money,<br>on a <em>calendar</em>.</h1></div>
     <div class="reveal in d1"><p>Most budget apps hand you a list and hope you enjoy scrolling.
@@ -210,7 +218,7 @@ footer a{color:var(--accent)}
   </div>
 </section>
 
-${sec("how","ink","The idea","A month you can read in two seconds",
+${sec("how","blue","The idea","A month you can read in two seconds",
 "You already think about money in weeks and months. Rent lands here, payday lands there, the expensive weekend was that one. A list flattens all of that. A calendar doesn't.",
 `<div class="grid reveal d2">
   <div class="card"><h3>Spending sits on its day</h3><p>Colored by category, so a heavy week is obvious without reading a single number.</p></div>
@@ -222,7 +230,7 @@ ${sec("heat","red","Spot it instantly","You will see it before you read it",
 "Every day is tinted by how much went out, green through to red, scaled against your own month. You'll spot a bad week before you've read a single figure.",
 heatGrid())}
 
-${sec("privacy","black","Your data","Nothing leaves your phone",
+${sec("privacy","green","Your data","Nothing leaves your phone",
 "No accounts. No servers. No analytics. No bank logins.",
 `<div class="reveal d2"><p class="big">We couldn't see your spending if we wanted to.
 <span>There's nowhere for it to go.</span></p>
@@ -233,7 +241,7 @@ ${sec("privacy","black","Your data","Nothing leaves your phone",
   <li><span class="yes">✓</span><span>Everything stays in the app and <b>leaves only when you export it</b></span></li>
 </ul></div>`)}
 
-${sec("streak","green","How it treats you","A streak that isn't a trap",
+${sec("streak","pink","How it treats you","A streak that isn't a trap",
 "It counts days you kept track, not days you spent less. Logging a big expense keeps it alive exactly as well as spending nothing. Miss a day and it survives.",
 `<div class="reveal d2">${streakNum(28)}</div>
 <div class="grid reveal d3">
@@ -249,7 +257,7 @@ ${["#E8C547","#E8944A","#E05252","#E88BA8","#A78BE8","#5B9BD5","#6FBF8B","#FFF8E
 .map((c,i)=>`<div class="sw" style="background:${c};--i:${i}"></div>`).join("")}
 </div>`)}
 
-${sec("why","brown","Why it exists","I built the app I wanted to use",
+${sec("why","black","Why it exists","I built the app I wanted to use",
 "Every budget app I tried wanted my bank logins and my spending history before it would show me anything. That felt like a lot to hand over just to find out where my money went.",
 `<div class="reveal d2"><p class="lede" style="margin-top:20px">So this one keeps everything on your phone.
 Not as a feature to put on a list, but because I didn't want my own data sitting on somebody else's
@@ -258,7 +266,7 @@ server. You get to be exactly as private with it as I am.</p>
 A column of numbers tells me nothing, but a month with color on it tells me everything. If you think
 the same way, this was built for you too.</p></div>`)}
 
-${sec("price","gold","The price","Free. Here's the catch: there isn't one.",
+${sec("price","white","The price","Free. Here's the catch: there isn't one.",
 "No trial, no paywalled pro features, no subscription appearing in six months. There's no server to pay for and no data to sell, which makes free surprisingly easy. If you like it, there's a tip jar. That's the whole business model.",
 `<div class="reveal d2" style="margin-top:34px"><div class="cta">
   <a class="btn" href="#">Coming soon</a>
@@ -284,6 +292,8 @@ ${scrollCue()}
         root.style.setProperty('--bg', d.bg);
         root.style.setProperty('--surf', d.surf);
         root.style.setProperty('--accent', d.accent);
+        root.style.setProperty('--ink', d.ink);
+        root.style.setProperty('--muted', d.muted);
       }
     });
   }, { threshold:[0.4,0.6] });
