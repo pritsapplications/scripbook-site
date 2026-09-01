@@ -133,6 +133,9 @@ h2{font-size:clamp(32px,6vw,64px);line-height:1.02;letter-spacing:-.035em;font-w
 border-radius:14px;text-decoration:none;transition:transform .25s,background .8s,color .8s}
 .btn:hover{transform:translateY(-2px)}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid color-mix(in srgb,var(--ink) 22%,transparent)}
+.btn.soon{background:transparent;color:var(--muted);cursor:default;
+border:1px dashed color-mix(in srgb,var(--ink) 26%,transparent)}
+.btn.soon:hover{transform:none}
 .free{margin-top:18px;font-size:14px;color:var(--muted)}
 
 .month{display:grid;grid-template-columns:repeat(7,1fr);gap:9px;background:var(--surf);
@@ -212,7 +215,7 @@ footer a{color:var(--accent)}
     <div class="reveal in d1"><p>Most budget apps hand you a list and hope you enjoy scrolling.
     ScripBook puts what you spent on the day you spent it, so a whole month makes sense at a glance.</p></div>
     <div class="reveal in d2"><div class="cta">
-      <a class="btn" href="#">Coming soon</a><a class="btn ghost" href="#how">See how it works</a>
+      <a class="btn" href="#how">See how it works</a><span class="btn soon" aria-disabled="true">Coming soon</span>
     </div><div class="free">Free. Not free-for-now. Actually free.</div></div>
     ${calendar()}
   </div>
@@ -269,7 +272,7 @@ the same way, this was built for you too.</p></div>`)}
 ${sec("price","white","The price","Free. Here's the catch: there isn't one.",
 "No trial, no paywalled pro features, no subscription appearing in six months. There's no server to pay for and no data to sell, which makes free surprisingly easy. If you like it, there's a tip jar. That's the whole business model.",
 `<div class="reveal d2" style="margin-top:34px"><div class="cta">
-  <a class="btn" href="#">Coming soon</a>
+  <span class="btn soon" aria-disabled="true">Coming soon</span>
   <a class="btn ghost" href="https://ko-fi.com/pritsapps">Tip jar</a>
 </div></div>`)}
 
