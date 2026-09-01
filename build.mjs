@@ -96,6 +96,25 @@ const html = `<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ScripBook: your money, on a calendar</title>
 <meta name="description" content="A budgeting app that puts your spending on a calendar. Nothing leaves your phone. Free, no catch.">
+<meta name="theme-color" content="#241F14">
+<link rel="canonical" href="https://pritsapplications.github.io/scripbook-site/">
+
+<!-- Link preview. og:image must be absolute, and the declared size has to
+     match the file, which og.sh renders at 2x for retina. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ScripBook">
+<meta property="og:url" content="https://pritsapplications.github.io/scripbook-site/">
+<meta property="og:title" content="ScripBook: your money, on a calendar">
+<meta property="og:description" content="A budgeting app that puts your spending on a calendar. Nothing leaves your phone. Free, no catch.">
+<meta property="og:image" content="https://pritsapplications.github.io/scripbook-site/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="ScripBook. Your money, on a calendar. A month of spending shown as colored marks on calendar days.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ScripBook: your money, on a calendar">
+<meta name="twitter:description" content="A budgeting app that puts your spending on a calendar. Nothing leaves your phone. Free, no catch.">
+<meta name="twitter:image" content="https://pritsapplications.github.io/scripbook-site/og.png">
 <style>
 :root{--bg:${P.gold.bg};--surf:${P.gold.surf};--accent:${P.gold.accent};--ink:${P.gold.ink};--muted:${muted(P.gold.ink)}}
 *{box-sizing:border-box;margin:0;padding:0}
