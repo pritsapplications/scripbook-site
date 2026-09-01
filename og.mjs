@@ -14,7 +14,7 @@ const mark = (cell, gap, radius) => {
   let out = "";
   for (let r = 0; r < 5; r++) for (let c = 0; c < 5; c++) {
     const lit = S_CELLS.some(([a, b]) => a === r && b === c - 1);
-    const accent = r === 2 && c === 3;
+    const accent = r === 2 && c === 2;
     out += `<i style="background:${lit ? (accent ? "#FF7A45" : GOLD) : "rgba(232,197,71,.14)"};border-radius:${radius}px"></i>`;
   }
   return `<div class="mk" style="grid-template-columns:repeat(5,${cell}px);gap:${gap}px">${out}</div>`;

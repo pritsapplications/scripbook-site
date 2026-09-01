@@ -99,6 +99,14 @@ const html = `<!doctype html>
 <meta name="theme-color" content="#241F14">
 <link rel="canonical" href="https://pritsapplications.github.io/scripbook-site/">
 
+<!-- The same S grid as the app icon. The .ico carries 16/32/48 for browsers
+     that want a bitmap; the SVG is picked by anything that supports it and
+     stays sharp on any display. Paths are relative, because the site is
+     served from a subdirectory, not the domain root. -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
 <!-- Link preview. og:image must be absolute, and the declared size has to
      match the file, which og.sh renders at 2x for retina. -->
 <meta property="og:type" content="website">
