@@ -1,28 +1,84 @@
-<!doctype html>
+// Builds the studio home at pritsapps.com. Run: node studio.mjs
+//
+// Same technique as the ScripBook page, turned outward: each section carries
+// the real palette of the app it introduces, so the page previews both
+// products rather than describing them in one house style. ScripBook's gold
+// on espresso, then Hit 50's paper and brick, which is light and lands as a
+// deliberate jolt after two dark screens.
+import fs from "fs";
+
+const SITE = "https://pritsapps.com/";
+
+// One person's studio, so the palettes are the apps' own, not a brand system.
+const P = {
+  ink:    { bg:"#17150F", surf:"#221F16", accent:"#E8C547", ink:"#F6F3EC" },  // studio
+  gold:   { bg:"#241F14", surf:"#332C1E", accent:"#E8C547", ink:"#F6F3EC" },  // ScripBook
+  paper:  { bg:"#F4EFE4", surf:"#ECE4D3", accent:"#B4472B", ink:"#26231B" },  // Hit 50
+  black:  { bg:"#0D0D0D", surf:"#1A1A1A", accent:"#F2F2F2", ink:"#F2F2F2" },  // ethos
+};
+const muted = (hex) => {
+  const n = parseInt(hex.slice(1), 16);
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, .62)`;
+};
+const attrs = (k) =>
+  `data-bg="${P[k].bg}" data-surf="${P[k].surf}" data-accent="${P[k].accent}" ` +
+  `data-ink="${P[k].ink}" data-muted="${muted(P[k].ink)}"`;
+
+// The studio mark: a P on the same 5x5 grid as the ScripBook icon's S, so the
+// family reads as one hand without either app borrowing the other's letter.
+const P_CELLS = [[0,1],[0,2],[0,3],[1,1],[1,3],[2,1],[2,2],[2,3],[3,1],[4,1]];
+const S_CELLS = [[0,0],[0,1],[0,2],[1,0],[2,0],[2,1],[2,2],[3,2],[4,0],[4,1],[4,2]];
+function grid(cells, { shift = 0, accentAt = null, cell = 15, gap = 4.5, radius = 3.5 } = {}) {
+  let out = "";
+  for (let r = 0; r < 5; r++) for (let c = 0; c < 5; c++) {
+    const lit = cells.some(([a, b]) => a === r && b === c - shift);
+    const acc = accentAt && accentAt[0] === r && accentAt[1] === c;
+    out += `<i style="background:${lit ? (acc ? "#FF7A45" : "currentColor") : "currentColor"};` +
+           `opacity:${lit ? 1 : .16};border-radius:${radius}px"></i>`;
+  }
+  return `<div class="grid" style="grid-template-columns:repeat(5,${cell}px);gap:${gap}px">${out}</div>`;
+}
+
+// A month of coloured marks, the shape ScripBook is actually about.
+const spend = {3:["#8B5A83"],5:["#5C7A52","#B54834"],9:["#3D6B87"],11:["#5C7A52"],
+  16:["#B54834","#7A6A53"],18:["#5C7A52"],22:["#3D6B87","#8B5A83"],24:["#B54834"],27:["#5C7A52"]};
+let month = "";
+for (let d = 1; d <= 28; d++) {
+  const bars = (spend[d] || []).map((c) => `<u style="background:${c}"></u>`).join("");
+  month += `<div class="d" style="--i:${d}"><s>${d}</s><div class="bars">${bars}</div></div>`;
+}
+
+// Twelve of the fifty, enough to read as a map without pretending to be one.
+const HIT = ["NY","NJ","PA","CT","MA","FL","CA","NV","AZ","VT","NH","ME"];
+const TODO = ["TX","WA","OR","CO","UT","MT","IL","MI","OH","GA","NC","HI"];
+const chips = (list, cls) => list.map((s, i) =>
+  `<span class="st ${cls}" style="--i:${i}">${s}</span>`).join("");
+
+const html = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Prits Apps</title>
 <meta name="description" content="Small apps made by one person. A budgeting app that keeps everything on your phone, and a travel tracker anyone can add to.">
-<meta name="theme-color" content="#17150F">
-<link rel="canonical" href="https://pritsapps.com/">
+<meta name="theme-color" content="${P.ink.bg}">
+<link rel="canonical" href="${SITE}">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Prits Apps">
-<meta property="og:url" content="https://pritsapps.com/">
+<meta property="og:url" content="${SITE}">
 <meta property="og:title" content="Prits Apps">
 <meta property="og:description" content="Small apps made by one person. Each one collects only what it needs to work.">
-<meta property="og:image" content="https://pritsapps.com/og.png">
+<meta property="og:image" content="${SITE}og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Prits Apps">
 <meta name="twitter:description" content="Small apps made by one person. Each one collects only what it needs to work.">
-<meta name="twitter:image" content="https://pritsapps.com/og.png">
+<meta name="twitter:image" content="${SITE}og.png">
 
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
-:root{--bg:#17150F;--surf:#221F16;--accent:#E8C547;--ink:#F6F3EC;--muted:rgba(246, 243, 236, .62)}
+:root{--bg:${P.ink.bg};--surf:${P.ink.surf};--accent:${P.ink.accent};--ink:${P.ink.ink};--muted:${muted(P.ink.ink)}}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);overflow-x:hidden;
@@ -101,12 +157,12 @@ footer .sp{margin:0 10px;opacity:.4}
 <body>
 
 <div class="prog" id="prog"></div>
-<nav><div class="grid" style="grid-template-columns:repeat(5,5px);gap:1.6px"><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i></div><span class="nm">Prits Apps</span>
+<nav>${grid(P_CELLS, { cell: 5, gap: 1.6, radius: 1.4 })}<span class="nm">Prits Apps</span>
 <span class="sp"></span><a href="#apps">Apps</a></nav>
 
-<section class="sec hero" data-bg="#17150F" data-surf="#221F16" data-accent="#E8C547" data-ink="#F6F3EC" data-muted="rgba(246, 243, 236, .62)">
+<section class="sec hero" ${attrs("ink")}>
   <div class="inner">
-    <div class="reveal in"><span class="mk"><div class="grid" style="grid-template-columns:repeat(5,26px);gap:8px"><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i></div></span></div>
+    <div class="reveal in"><span class="mk">${grid(P_CELLS, { cell: 26, gap: 8, radius: 6 })}</span></div>
     <div class="reveal in d1"><h1>I build the apps<br>I <em>wanted to use</em>.</h1></div>
     <div class="reveal in d2"><p class="lede">One person, no investors, no growth team. Each app
     collects only what it needs to do its job, and the budgeting one collects nothing at all.</p>
@@ -115,7 +171,7 @@ footer .sp{margin:0 10px;opacity:.4}
   </div>
 </section>
 
-<section class="sec" id="apps" data-bg="#241F14" data-surf="#332C1E" data-accent="#E8C547" data-ink="#F6F3EC" data-muted="rgba(246, 243, 236, .62)">
+<section class="sec" id="apps" ${attrs("gold")}>
   <div class="inner">
     <div class="split">
       <div>
@@ -127,12 +183,12 @@ footer .sp{margin:0 10px;opacity:.4}
         servers, no tracking.</p>
         <div class="cta"><a class="btn" href="/scripbook/">Read about ScripBook</a></div></div>
       </div>
-      <div class="month reveal d2"><div class="d" style="--i:1"><s>1</s><div class="bars"></div></div><div class="d" style="--i:2"><s>2</s><div class="bars"></div></div><div class="d" style="--i:3"><s>3</s><div class="bars"><u style="background:#8B5A83"></u></div></div><div class="d" style="--i:4"><s>4</s><div class="bars"></div></div><div class="d" style="--i:5"><s>5</s><div class="bars"><u style="background:#5C7A52"></u><u style="background:#B54834"></u></div></div><div class="d" style="--i:6"><s>6</s><div class="bars"></div></div><div class="d" style="--i:7"><s>7</s><div class="bars"></div></div><div class="d" style="--i:8"><s>8</s><div class="bars"></div></div><div class="d" style="--i:9"><s>9</s><div class="bars"><u style="background:#3D6B87"></u></div></div><div class="d" style="--i:10"><s>10</s><div class="bars"></div></div><div class="d" style="--i:11"><s>11</s><div class="bars"><u style="background:#5C7A52"></u></div></div><div class="d" style="--i:12"><s>12</s><div class="bars"></div></div><div class="d" style="--i:13"><s>13</s><div class="bars"></div></div><div class="d" style="--i:14"><s>14</s><div class="bars"></div></div><div class="d" style="--i:15"><s>15</s><div class="bars"></div></div><div class="d" style="--i:16"><s>16</s><div class="bars"><u style="background:#B54834"></u><u style="background:#7A6A53"></u></div></div><div class="d" style="--i:17"><s>17</s><div class="bars"></div></div><div class="d" style="--i:18"><s>18</s><div class="bars"><u style="background:#5C7A52"></u></div></div><div class="d" style="--i:19"><s>19</s><div class="bars"></div></div><div class="d" style="--i:20"><s>20</s><div class="bars"></div></div><div class="d" style="--i:21"><s>21</s><div class="bars"></div></div><div class="d" style="--i:22"><s>22</s><div class="bars"><u style="background:#3D6B87"></u><u style="background:#8B5A83"></u></div></div><div class="d" style="--i:23"><s>23</s><div class="bars"></div></div><div class="d" style="--i:24"><s>24</s><div class="bars"><u style="background:#B54834"></u></div></div><div class="d" style="--i:25"><s>25</s><div class="bars"></div></div><div class="d" style="--i:26"><s>26</s><div class="bars"></div></div><div class="d" style="--i:27"><s>27</s><div class="bars"><u style="background:#5C7A52"></u></div></div><div class="d" style="--i:28"><s>28</s><div class="bars"></div></div></div>
+      <div class="month reveal d2">${month}</div>
     </div>
   </div>
 </section>
 
-<section class="sec" data-bg="#F4EFE4" data-surf="#ECE4D3" data-accent="#B4472B" data-ink="#26231B" data-muted="rgba(38, 35, 27, .62)">
+<section class="sec" ${attrs("paper")}>
   <div class="inner">
     <div class="split">
       <div>
@@ -144,12 +200,12 @@ footer .sp{margin:0 10px;opacity:.4}
         join in.</p>
         <div class="cta"><a class="btn" href="https://hit-50-before-30.vercel.app">Open the tracker</a></div></div>
       </div>
-      <div class="map reveal d2"><span class="st hit" style="--i:0">NY</span><span class="st hit" style="--i:1">NJ</span><span class="st hit" style="--i:2">PA</span><span class="st hit" style="--i:3">CT</span><span class="st hit" style="--i:4">MA</span><span class="st hit" style="--i:5">FL</span><span class="st hit" style="--i:6">CA</span><span class="st hit" style="--i:7">NV</span><span class="st hit" style="--i:8">AZ</span><span class="st hit" style="--i:9">VT</span><span class="st hit" style="--i:10">NH</span><span class="st hit" style="--i:11">ME</span><span class="st todo" style="--i:0">TX</span><span class="st todo" style="--i:1">WA</span><span class="st todo" style="--i:2">OR</span><span class="st todo" style="--i:3">CO</span><span class="st todo" style="--i:4">UT</span><span class="st todo" style="--i:5">MT</span><span class="st todo" style="--i:6">IL</span><span class="st todo" style="--i:7">MI</span><span class="st todo" style="--i:8">OH</span><span class="st todo" style="--i:9">GA</span><span class="st todo" style="--i:10">NC</span><span class="st todo" style="--i:11">HI</span></div>
+      <div class="map reveal d2">${chips(HIT, "hit")}${chips(TODO, "todo")}</div>
     </div>
   </div>
 </section>
 
-<section class="sec" id="how" data-bg="#0D0D0D" data-surf="#1A1A1A" data-accent="#F2F2F2" data-ink="#F2F2F2" data-muted="rgba(242, 242, 242, .62)">
+<section class="sec" id="how" ${attrs("black")}>
   <div class="inner">
     <div class="reveal"><div class="kicker">How I build</div>
     <h2>Only what the app actually needs</h2></div>
@@ -214,4 +270,7 @@ footer .sp{margin:0 10px;opacity:.4}
   }, { passive:true });
 })();
 </script>
-</body></html>
+</body></html>`;
+
+fs.writeFileSync(new URL("index.html", import.meta.url), html);
+console.log("built index.html,", html.length, "bytes");

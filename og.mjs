@@ -8,13 +8,17 @@ import fs from "fs";
 
 const BG = "#241F14", SURF = "#332C1E", GOLD = "#E8C547", INK = "#F6F3EC";
 const S_CELLS = [[0,0],[0,1],[0,2],[1,0],[2,0],[2,1],[2,2],[3,2],[4,0],[4,1],[4,2]];
+// The studio card carries the P, not ScripBook's S. Same 5x5 construction.
+const P_CELLS = [[0,1],[0,2],[0,3],[1,1],[1,3],[2,1],[2,2],[2,3],[3,1],[4,1]];
 
 // The app icon's S, so the card carries the same mark as the app itself.
-const mark = (cell, gap, radius) => {
+const mark = (cell, gap, radius, letter = "S") => {
+  const cells = letter === "P" ? P_CELLS : S_CELLS;
+  const shift = letter === "P" ? 0 : 1;
   let out = "";
   for (let r = 0; r < 5; r++) for (let c = 0; c < 5; c++) {
-    const lit = S_CELLS.some(([a, b]) => a === r && b === c - 1);
-    const accent = r === 2 && c === 2;
+    const lit = cells.some(([a, b]) => a === r && b === c - shift);
+    const accent = letter === "S" && r === 2 && c === 2;
     out += `<i style="background:${lit ? (accent ? "#FF7A45" : GOLD) : "rgba(232,197,71,.14)"};border-radius:${radius}px"></i>`;
   }
   return `<div class="mk" style="grid-template-columns:repeat(5,${cell}px);gap:${gap}px">${out}</div>`;
@@ -29,8 +33,12 @@ for (let d = 1; d <= 28; d++) {
   days += `<div class="d"><s>${d}</s><div class="bars">${bars}</div></div>`;
 }
 
+// Two cards: the studio home and the ScripBook page each need their own, or
+// sharing a link to one shows the other's headline.
+const STUDIO = process.argv.includes("--studio");
+
 fs.mkdirSync("src", { recursive: true });
-fs.writeFileSync("src/og.html", `<meta charset="utf-8"><style>
+fs.writeFileSync(STUDIO ? "src/og-studio.html" : "src/og.html", `<meta charset="utf-8"><style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:1200px;height:630px;overflow:hidden}
 body{background:${BG};color:${INK};display:flex;align-items:center;gap:56px;padding:0 66px;
@@ -51,10 +59,15 @@ display:flex;flex-direction:column}
 .bars{margin-top:auto;display:flex;gap:1.5px;border-radius:3px;overflow:hidden}
 .bars u{height:5px;flex:1}
 </style>
-<div class="left">
+${STUDIO ? `<div class="left">
+  <div class="brand">${mark(17, 5, 4, "P")}<span>Prits Apps</span></div>
+  <h1>I build the apps<br>I <em>wanted to use</em>.</h1>
+  <p>Small apps, made by one person.</p>
+</div>
+<div class="cal">${days}</div>` : `<div class="left">
   <div class="brand">${mark(17, 5, 4)}<span>ScripBook</span></div>
   <h1>Your money,<br>on a <em>calendar</em>.</h1>
   <p>Nothing leaves your phone. Free, no catch.</p>
 </div>
-<div class="cal">${days}</div>`);
-console.log("wrote src/og.html");
+<div class="cal">${days}</div>`}`);
+console.log("wrote", STUDIO ? "src/og-studio.html" : "src/og.html");
