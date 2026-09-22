@@ -94,8 +94,14 @@ padding:6px;display:flex;flex-direction:column;opacity:0;transform:scale(.88);
 transition:opacity .5s,transform .5s;transition-delay:calc(var(--i)*19ms)}
 .in .d{opacity:1;transform:none}
 .d s{text-decoration:none;font:400 10px "IBM Plex Mono",monospace;color:rgba(246,243,236,.55)}
-.bars{margin-top:auto;display:flex;gap:1.5px;border-radius:2px;overflow:hidden}
-.bars u{height:5px;flex:1}
+.d.hot s{color:#16150F;font-weight:500}
+/* Spelling out what the colors mean, so the month reads as a scale rather
+   than as decoration. */
+.leg{display:flex;align-items:center;gap:10px;margin-top:14px;max-width:400px;
+font:400 10.5px "IBM Plex Mono",monospace;letter-spacing:.11em;text-transform:uppercase;
+color:var(--muted);transition:color .8s}
+.leg i{flex:1;height:5px;border-radius:3px;
+background:linear-gradient(90deg,hsl(130 48% 72%),hsl(65 64% 64%),hsl(0 80% 56%))}
 
 .map{display:flex;flex-wrap:wrap;gap:7px;width:100%;max-width:400px}
 .st{font:500 12.5px "IBM Plex Mono",monospace;letter-spacing:.05em;padding:9px 10px;
@@ -144,12 +150,13 @@ footer .sp{margin:0 9px;opacity:.35}
         <div class="reveal"><div class="kicker">iOS and Android · coming soon</div>
         <h2>ScripBook</h2></div>
         <div class="reveal d1"><p class="lede">Your money, on a calendar. Most budget apps hand you
-        a list and hope you enjoy scrolling. ScripBook puts what you spent on the day you spent it,
-        so a whole month makes sense at a glance. Nothing leaves your phone: no accounts, no
-        servers, no tracking.</p>
+        a list and hope you enjoy scrolling. ScripBook puts what you spent on the day you spent it
+        and colors each day by how heavy it was, so the expensive week shows up before you've read a
+        single number. Nothing leaves your phone: no accounts, no servers, no tracking.</p>
         <div class="cta"><a class="btn" href="/scripbook/">Read about ScripBook</a></div></div>
       </div>
-      <div class="month reveal d2"><div class="d" style="--i:1"><s>1</s><div class="bars"></div></div><div class="d" style="--i:2"><s>2</s><div class="bars"></div></div><div class="d" style="--i:3"><s>3</s><div class="bars"><u style="background:#8B5A83"></u></div></div><div class="d" style="--i:4"><s>4</s><div class="bars"></div></div><div class="d" style="--i:5"><s>5</s><div class="bars"><u style="background:#5C7A52"></u><u style="background:#B54834"></u></div></div><div class="d" style="--i:6"><s>6</s><div class="bars"></div></div><div class="d" style="--i:7"><s>7</s><div class="bars"></div></div><div class="d" style="--i:8"><s>8</s><div class="bars"></div></div><div class="d" style="--i:9"><s>9</s><div class="bars"><u style="background:#3D6B87"></u></div></div><div class="d" style="--i:10"><s>10</s><div class="bars"></div></div><div class="d" style="--i:11"><s>11</s><div class="bars"><u style="background:#5C7A52"></u></div></div><div class="d" style="--i:12"><s>12</s><div class="bars"></div></div><div class="d" style="--i:13"><s>13</s><div class="bars"></div></div><div class="d" style="--i:14"><s>14</s><div class="bars"></div></div><div class="d" style="--i:15"><s>15</s><div class="bars"></div></div><div class="d" style="--i:16"><s>16</s><div class="bars"><u style="background:#B54834"></u><u style="background:#7A6A53"></u></div></div><div class="d" style="--i:17"><s>17</s><div class="bars"></div></div><div class="d" style="--i:18"><s>18</s><div class="bars"><u style="background:#5C7A52"></u></div></div><div class="d" style="--i:19"><s>19</s><div class="bars"></div></div><div class="d" style="--i:20"><s>20</s><div class="bars"></div></div><div class="d" style="--i:21"><s>21</s><div class="bars"></div></div><div class="d" style="--i:22"><s>22</s><div class="bars"><u style="background:#3D6B87"></u><u style="background:#8B5A83"></u></div></div><div class="d" style="--i:23"><s>23</s><div class="bars"></div></div><div class="d" style="--i:24"><s>24</s><div class="bars"><u style="background:#B54834"></u></div></div><div class="d" style="--i:25"><s>25</s><div class="bars"></div></div><div class="d" style="--i:26"><s>26</s><div class="bars"></div></div><div class="d" style="--i:27"><s>27</s><div class="bars"><u style="background:#5C7A52"></u></div></div><div class="d" style="--i:28"><s>28</s><div class="bars"></div></div></div>
+      <div class="reveal d2"><div class="month"><div class="d hot" style="--i:1;background:hsl(106.6 53.76% 69.12%)"><s>1</s></div><div class="d hot" style="--i:2;background:hsl(91 57.6% 67.2%)"><s>2</s></div><div class="d hot" style="--i:3;background:hsl(114.4 51.84% 70.08%)"><s>3</s></div><div class="d" style="--i:4"><s>4</s></div><div class="d hot" style="--i:5;background:hsl(58.5 65.6% 63.2%)"><s>5</s></div><div class="d hot" style="--i:6;background:hsl(36.400000000000006 71.03999999999999% 60.480000000000004%)"><s>6</s></div><div class="d hot" style="--i:7;background:hsl(101.4 55.04% 68.48%)"><s>7</s></div><div class="d hot" style="--i:8;background:hsl(111.8 52.480000000000004% 69.76%)"><s>8</s></div><div class="d hot" style="--i:9;background:hsl(80.6 60.16% 65.92%)"><s>9</s></div><div class="d" style="--i:10"><s>10</s></div><div class="d hot" style="--i:11;background:hsl(96.19999999999999 56.32% 67.84%)"><s>11</s></div><div class="d hot" style="--i:12;background:hsl(72.8 62.08% 64.96%)"><s>12</s></div><div class="d hot" style="--i:13;background:hsl(15.599999999999994 76.16% 57.92%)"><s>13</s></div><div class="d hot" style="--i:14;background:hsl(85.8 58.88% 66.56%)"><s>14</s></div><div class="d hot" style="--i:15;background:hsl(117 51.2% 70.4%)"><s>15</s></div><div class="d hot" style="--i:16;background:hsl(49.400000000000006 67.84% 62.08%)"><s>16</s></div><div class="d hot" style="--i:17;background:hsl(104 54.4% 68.8%)"><s>17</s></div><div class="d" style="--i:18"><s>18</s></div><div class="d hot" style="--i:19;background:hsl(67.6 63.36% 64.32%)"><s>19</s></div><div class="d hot" style="--i:20;background:hsl(0 80% 56%)"><s>20</s></div><div class="d hot" style="--i:21;background:hsl(91 57.6% 67.2%)"><s>21</s></div><div class="d hot" style="--i:22;background:hsl(109.2 53.12% 69.44%)"><s>22</s></div><div class="d hot" style="--i:23;background:hsl(78 60.8% 65.6%)"><s>23</s></div><div class="d hot" style="--i:24;background:hsl(98.8 55.68% 68.16%)"><s>24</s></div><div class="d hot" style="--i:25;background:hsl(54.60000000000001 66.56% 62.72%)"><s>25</s></div><div class="d hot" style="--i:26;background:hsl(83.2 59.519999999999996% 66.24%)"><s>26</s></div><div class="d hot" style="--i:27;background:hsl(41.599999999999994 69.76% 61.12%)"><s>27</s></div><div class="d hot" style="--i:28;background:hsl(114.4 51.84% 70.08%)"><s>28</s></div></div>
+      <div class="leg"><span>Quiet</span><i></i><span>Heavy</span></div></div>
     </div>
   </div>
 </section>

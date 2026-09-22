@@ -84,6 +84,19 @@ to the browser and can't carry a web font with it.
 Opposite on every axis on purpose. The contrast is what keeps a link to the
 studio from looking like a link to the app.
 
+## The ScripBook preview
+
+The month in ScripBook's section is colored by the heat map, using the same
+classic-ramp expression as the product page and the app: hue falls from green
+to red while saturation rises and lightness drops. A flat saturation makes the
+red end land as pink, which is why all three move together.
+
+It's drawn filled rather than as the four-pixel bar the app defaults to. At
+400px the bar is too small to register as a system, and a preview that can't be
+read isn't selling anything. Filling the day is one of the app's own modes, not
+an invention for the website. The legend underneath is there so the month reads
+as a scale rather than as decoration.
+
 ## Copy rules
 
 - No em dashes anywhere

@@ -39,12 +39,36 @@ const logo = (cls = "") => `<span class="logo ${cls}">prits<i>.</i>apps</span>`;
 
 // ScripBook's own month, shown inside ScripBook's own section. This is the one
 // place cells belong here, and they are a screenshot of the product.
-const spend = {3:["#8B5A83"],5:["#5C7A52","#B54834"],9:["#3D6B87"],11:["#5C7A52"],
-  16:["#B54834","#7A6A53"],18:["#5C7A52"],22:["#3D6B87","#8B5A83"],24:["#B54834"],27:["#5C7A52"]};
+//
+// The days are colored by the heat map, which is the feature that makes the
+// calendar worth having: it's what lets a month be read rather than added up.
+// It used to show category-colored bars instead, which is real but says
+// nothing about how the app is meant to be used.
+//
+// Shown filled rather than as the four-pixel bar the app defaults to. At this
+// size the bar is too small to register as a system, and a preview that can't
+// be read isn't selling anything. Filling the day is one of the app's own
+// modes, not an invention for the website.
+//
+// Mostly light days with two that stand out and three with nothing spent,
+// because a month where every day is red teaches nothing.
+const HEAT = {1:.18,2:.30,3:.12,4:0,5:.55,6:.72,7:.22,8:.14,9:.38,10:0,11:.26,
+  12:.44,13:.88,14:.34,15:.10,16:.62,17:.20,18:0,19:.48,20:1,21:.30,22:.16,
+  23:.40,24:.24,25:.58,26:.36,27:.68,28:.12};
+
+// The classic ramp, the same expression the ScripBook page and the app itself
+// use: hue falls from green to red while saturation rises and lightness drops,
+// because a flat saturation makes the red end land as pink.
+const ramp = (p) => `hsl(${130 - 130 * p} ${48 + 32 * p}% ${72 - 16 * p}%)`;
+
+// Every step of the classic ramp is light enough that the app picks its dark
+// ink for the number, so there is no per-day contrast decision to make here.
 let month = "";
 for (let d = 1; d <= 28; d++) {
-  const bars = (spend[d] || []).map((c) => `<u style="background:${c}"></u>`).join("");
-  month += `<div class="d" style="--i:${d}"><s>${d}</s><div class="bars">${bars}</div></div>`;
+  const p = HEAT[d];
+  month += p > 0
+    ? `<div class="d hot" style="--i:${d};background:${ramp(p)}"><s>${d}</s></div>`
+    : `<div class="d" style="--i:${d}"><s>${d}</s></div>`;
 }
 
 const HIT = ["NY","NJ","PA","CT","MA","FL","CA","NV","AZ","VT","NH","ME"];
@@ -148,8 +172,14 @@ padding:6px;display:flex;flex-direction:column;opacity:0;transform:scale(.88);
 transition:opacity .5s,transform .5s;transition-delay:calc(var(--i)*19ms)}
 .in .d{opacity:1;transform:none}
 .d s{text-decoration:none;font:400 10px "IBM Plex Mono",monospace;color:rgba(246,243,236,.55)}
-.bars{margin-top:auto;display:flex;gap:1.5px;border-radius:2px;overflow:hidden}
-.bars u{height:5px;flex:1}
+.d.hot s{color:#16150F;font-weight:500}
+/* Spelling out what the colors mean, so the month reads as a scale rather
+   than as decoration. */
+.leg{display:flex;align-items:center;gap:10px;margin-top:14px;max-width:400px;
+font:400 10.5px "IBM Plex Mono",monospace;letter-spacing:.11em;text-transform:uppercase;
+color:var(--muted);transition:color .8s}
+.leg i{flex:1;height:5px;border-radius:3px;
+background:linear-gradient(90deg,hsl(130 48% 72%),hsl(65 64% 64%),hsl(0 80% 56%))}
 
 .map{display:flex;flex-wrap:wrap;gap:7px;width:100%;max-width:400px}
 .st{font:500 12.5px "IBM Plex Mono",monospace;letter-spacing:.05em;padding:9px 10px;
@@ -198,12 +228,13 @@ footer .sp{margin:0 9px;opacity:.35}
         <div class="reveal"><div class="kicker">iOS and Android · coming soon</div>
         <h2>ScripBook</h2></div>
         <div class="reveal d1"><p class="lede">Your money, on a calendar. Most budget apps hand you
-        a list and hope you enjoy scrolling. ScripBook puts what you spent on the day you spent it,
-        so a whole month makes sense at a glance. Nothing leaves your phone: no accounts, no
-        servers, no tracking.</p>
+        a list and hope you enjoy scrolling. ScripBook puts what you spent on the day you spent it
+        and colors each day by how heavy it was, so the expensive week shows up before you've read a
+        single number. Nothing leaves your phone: no accounts, no servers, no tracking.</p>
         <div class="cta"><a class="btn" href="/scripbook/">Read about ScripBook</a></div></div>
       </div>
-      <div class="month reveal d2">${month}</div>
+      <div class="reveal d2"><div class="month">${month}</div>
+      <div class="leg"><span>Quiet</span><i></i><span>Heavy</span></div></div>
     </div>
   </div>
 </section>
