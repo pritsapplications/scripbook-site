@@ -56,6 +56,27 @@ const HEAT = {1:.18,2:.30,3:.12,4:0,5:.55,6:.72,7:.22,8:.14,9:.38,10:0,11:.26,
   12:.44,13:.88,14:.34,15:.10,16:.62,17:.20,18:0,19:.48,20:1,21:.30,22:.16,
   23:.40,24:.24,25:.58,26:.36,27:.68,28:.12};
 
+// The app's real default categories, ids and colors from
+// ScripBookApp/src/lib/constants.js.
+const CAT = { work:"#3D6B87", leisure:"#8B5A83", fun:"#B54834",
+  essentials:"#5C7A52", other:"#7A6A53" };
+
+// How each day's spending splits across categories. In the app the bar always
+// spans the full width and each segment takes the share of that day's total
+// its category accounts for, so these are weights, not widths.
+const MIX = {
+  1:[["essentials",3]], 2:[["essentials",2],["work",1]], 3:[["other",1]],
+  5:[["fun",2],["leisure",1]], 6:[["leisure",3],["fun",2]], 7:[["essentials",1]],
+  8:[["other",1]], 9:[["work",2],["essentials",1]], 11:[["essentials",2]],
+  12:[["fun",1],["essentials",2]], 13:[["fun",4],["leisure",2],["other",1]],
+  14:[["essentials",2],["work",1]], 15:[["other",1]], 16:[["leisure",2],["fun",1]],
+  17:[["essentials",1]], 19:[["work",1],["fun",1]],
+  20:[["fun",3],["leisure",3],["essentials",1]], 21:[["essentials",2],["other",1]],
+  22:[["other",1]], 23:[["work",1],["essentials",1]], 24:[["essentials",1]],
+  25:[["leisure",2],["fun",1]], 26:[["essentials",1],["other",1]],
+  27:[["fun",2],["work",1]], 28:[["essentials",1]],
+};
+
 // The classic ramp, the same expression the ScripBook page and the app itself
 // use: hue falls from green to red while saturation rises and lightness drops,
 // because a flat saturation makes the red end land as pink.
@@ -63,11 +84,21 @@ const ramp = (p) => `hsl(${130 - 130 * p} ${48 + 32 * p}% ${72 - 16 * p}%)`;
 
 // Every step of the classic ramp is light enough that the app picks its dark
 // ink for the number, so there is no per-day contrast decision to make here.
+//
+// Heat and categories answer different questions and the app shows both at
+// once: the fill is how much went out that day, the bar is what it went on.
+// The category colors are all dark and muted, so they hold up against every
+// step of the ramp.
 let month = "";
 for (let d = 1; d <= 28; d++) {
   const p = HEAT[d];
+  const mix = MIX[d] || [];
+  const bar = mix.length
+    ? `<u>${mix.map(([id, w]) =>
+        `<b style="flex:${w};background:${CAT[id]}"></b>`).join("")}</u>`
+    : "";
   month += p > 0
-    ? `<div class="d hot" style="--i:${d};background:${ramp(p)}"><s>${d}</s></div>`
+    ? `<div class="d hot" style="--i:${d};background:${ramp(p)}"><s>${d}</s>${bar}</div>`
     : `<div class="d" style="--i:${d}"><s>${d}</s></div>`;
 }
 
@@ -98,9 +129,9 @@ const html = `<!doctype html>
 <meta name="twitter:description" content="Small apps made by one person. Each one collects only what it needs to work.">
 <meta name="twitter:image" content="${SITE}og.png">
 
-<link rel="icon" href="/favicon.ico" sizes="32x32">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="32x32">
+<link rel="icon" href="/icon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -173,6 +204,9 @@ transition:opacity .5s,transform .5s;transition-delay:calc(var(--i)*19ms)}
 .in .d{opacity:1;transform:none}
 .d s{text-decoration:none;font:400 10px "IBM Plex Mono",monospace;color:rgba(246,243,236,.55)}
 .d.hot s{color:#16150F;font-weight:500}
+/* Full width, split by each category's share of the day, same as the app. */
+.d u{margin-top:auto;display:flex;height:4px;border-radius:2px;overflow:hidden}
+.d u b{display:block}
 /* Spelling out what the colors mean, so the month reads as a scale rather
    than as decoration. */
 .leg{display:flex;align-items:center;gap:10px;margin-top:14px;max-width:400px;

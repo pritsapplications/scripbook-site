@@ -91,11 +91,26 @@ classic-ramp expression as the product page and the app: hue falls from green
 to red while saturation rises and lightness drops. A flat saturation makes the
 red end land as pink, which is why all three move together.
 
-It's drawn filled rather than as the four-pixel bar the app defaults to. At
-400px the bar is too small to register as a system, and a preview that can't be
-read isn't selling anything. Filling the day is one of the app's own modes, not
-an invention for the website. The legend underneath is there so the month reads
-as a scale rather than as decoration.
+It's drawn filled rather than as the four-pixel heat bar the app defaults to.
+At 400px that bar is too small to register as a system, and a preview that
+can't be read isn't selling anything. Filling the day is one of the app's own
+modes, not an invention for the website. The legend underneath is there so the
+month reads as a scale rather than as decoration.
+
+The category bars sit on top of the fill, exactly as they do in the app. The
+two answer different questions and both matter: the fill is how much went out
+that day, the bar is what it went on. Each bar spans the full width of the day
+and each segment takes its category's share of that day's total, so the
+segments are shares rather than amounts. Colors come from the app's default
+categories in `ScripBookApp/src/lib/constants.js`; they are all dark and
+muted, which is what lets them hold up against every step of the ramp.
+
+## Icon cache
+
+The icon links carry a `?v=` query. Chrome keeps favicons in a database of its
+own that ignores cache headers and survives a hard reload, so replacing the
+file at an unchanged URL can leave the old icon showing for days. Bump the
+number whenever a mark actually changes.
 
 ## Copy rules
 
