@@ -55,6 +55,17 @@ Grotesk with the separator in the accent. The dot is the whole idea, since a
 dot between two lowercase words is how software already gets named, so it says
 what the studio is without an icon or a metaphor.
 
+Both letters are one construction mirrored: a bowl, and a stem exactly one
+stroke wide sitting flush with the bowl's outer edge. The p's stem is on the
+left and carries past the baseline into a descender; the a's is on the right
+and stops at the baseline. It used to overhang its bowl by half a stroke,
+which made the mark visibly lopsided.
+
+The separator is a shade deeper inside the mark than on the site. On the page
+the accent sits on near-black and `#C2D6DE` is right; in the mark it touches
+near-white letters, and at 16px a pale blue-grey against white stops reading
+as a separator at all.
+
 At favicon size the wordmark is unreadable, so it contracts to its initials and
 keeps the separator: `p.a`, built in `mark-studio.mjs` and shared by the
 favicon and the link preview card. The letters are drawn from a circle and a
@@ -67,7 +78,7 @@ to the browser and can't carry a web font with it.
 | --- | --- | --- |
 | Type | Space Grotesk, Inter, IBM Plex Mono | Fraunces |
 | Ground | Cool graphite, `#0E1014` to `#08090B` | Warm espresso, `#241F14` |
-| Accent | Mint, `#5FE3C0` | Gold, `#E8C547` |
+| Accent | Ice, `#C2D6DE` (`#9FBECB` inside the mark) | Gold, `#E8C547` |
 | Mark | `prits.apps` / `p.a` | The S grid and the ragged month |
 
 Opposite on every axis on purpose. The contrast is what keeps a link to the

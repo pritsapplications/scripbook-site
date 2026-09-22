@@ -71,7 +71,7 @@ display:flex;flex-direction:column}
 // The card is the wordmark, which is the whole identity. The p.a tile on the
 // right is the same drawing as the favicon, enlarged, so a link preview and a
 // browser tab show the same thing.
-const S_BG = "#0E1014", S_SURF = "#181B21", S_ACCENT = "#5FE3C0", S_INK = "#E9EBF0";
+const S_BG = "#0E1014", S_SURF = "#181B21", S_ACCENT = "#C2D6DE", S_INK = "#E9EBF0";
 
 const studio = `<meta charset="utf-8"><style>
 *{margin:0;padding:0;box-sizing:border-box}

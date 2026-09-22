@@ -13,7 +13,7 @@ import fs from "fs";
 import { markSvg } from "./mark-studio.mjs";
 
 const SITE = "https://pritsapps.com/";
-const ACCENT = process.env.ACCENT || "#5FE3C0";   // the one color the studio owns
+const ACCENT = process.env.ACCENT || "#C2D6DE";   // the one color the studio owns
 const OUT = process.env.OUT || "index.html";
 
 // A tonal run through neutrals rather than a tour of other people's palettes.
