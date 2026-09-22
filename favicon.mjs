@@ -1,8 +1,12 @@
-// Builds the favicon set from the same S grid as the app icon. Geometry and
-// colors are copied from ScripBookApp/scripts/make-icons.mjs so the tab icon
+// Builds ScripBook's favicon set from the same S grid as the app icon. Geometry
+// and colors are copied from ScripBookApp/scripts/make-icons.mjs so the tab icon
 // and the installed app are the same mark, not two drawings of one idea.
 //
-// Writes icon.svg, then favicon.sh rasterizes the PNG sizes and packs the .ico.
+// These land under scripbook/ rather than at the domain root. The root belongs
+// to the studio now, and the studio has its own mark in favicon-studio.mjs. A
+// page linking the wrong one is what made the two look like the same product.
+//
+// Writes scripbook/icon.svg, then favicon.sh rasterizes the sizes and packs the .ico.
 import fs from "fs";
 
 const BG = "#16150F", GOLD = "#F2C230", DIM = "#6E6244", ACCENT = "#FF7A45";
@@ -36,9 +40,10 @@ function svg(size = 64, radius = 0.19) {
     + `<rect width="${size}" height="${size}" rx="${(size * radius).toFixed(3)}" fill="${BG}"/>${cells}</svg>`;
 }
 
-fs.writeFileSync("icon.svg", svg(64));
+fs.mkdirSync("scripbook", { recursive: true });
+fs.writeFileSync("scripbook/icon.svg", svg(64));
 fs.mkdirSync("src", { recursive: true });
 fs.writeFileSync("src/favicon.html",
   `<meta charset="utf-8"><style>*{margin:0;padding:0}html,body{width:512px;height:512px;overflow:hidden}
    svg{display:block;width:512px;height:512px}</style>${svg(512)}`);
-console.log("wrote icon.svg and src/favicon.html");
+console.log("wrote scripbook/icon.svg and src/favicon.html");

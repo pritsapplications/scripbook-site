@@ -103,9 +103,9 @@ const html = `<!doctype html>
      that want a bitmap; the SVG is picked by anything that supports it and
      stays sharp on any display. Paths are relative, because the site is
      served from a subdirectory, not the domain root. -->
-<link rel="icon" href="/favicon.ico" sizes="32x32">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/scripbook/favicon.ico" sizes="32x32">
+<link rel="icon" href="/scripbook/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/scripbook/apple-touch-icon.png">
 
 <!-- Link preview. og:image must be absolute, and the declared size has to
      match the file, which og.sh renders at 2x for retina. -->

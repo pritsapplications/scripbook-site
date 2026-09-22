@@ -16,7 +16,8 @@ and headless Chrome for the images.
 | `scripbook/index.html` | `build.mjs` | The ScripBook product page |
 | `og.png` | `og.sh --studio` | Link preview card for the home |
 | `scripbook/og.png` | `og.sh` | Link preview card for ScripBook |
-| `favicon.ico`, `icon.svg`, `apple-touch-icon.png` | `favicon.sh` | Icons, from the app's S grid |
+| `favicon.ico`, `icon.svg`, `apple-touch-icon.png` | `favicon.sh` | Studio icons, the `p.a` mark |
+| `scripbook/favicon.ico`, `.svg`, `apple-touch-icon.png` | `favicon.sh` | ScripBook icons, the app's S grid |
 | `CNAME` | `build.sh` | `pritsapps.com` |
 
 `src/` holds generated intermediates and is gitignored.
@@ -29,17 +30,48 @@ properties on `:root`. Reveals fire once and stay revealed, because re-hiding
 on the way back up reads as a bug. `prefers-reduced-motion` disables all of it.
 
 The ScripBook page cycles the app's own sixteen palettes, which demonstrates
-the theming feature rather than describing it. The studio home instead carries
-each *app's* real palette in the section that introduces it: ScripBook's gold
-on espresso, then Hit 50's paper and brick, which is light and lands as a
-deliberate jolt after two dark screens.
+the theming feature rather than describing it.
+
+The studio home used to do the same thing with each app's real palette, which
+was a mistake: the home page spent most of its length wearing ScripBook's gold
+on espresso, so the studio and the app looked like one product and neither had
+an identity of its own. It now runs through cool neutrals instead, graphite to
+near-black with one light break for Hit 50, and each app's own color appears
+only as an accent inside its section. The grounds stay the studio's; the
+accents belong to the apps.
 
 ## Marks
 
-One 5x5 rounded-cell grid, two letters. The **S** is ScripBook's, geometry and
-colours copied from `ScripBookApp/scripts/make-icons.mjs` so the icon and the
-site cannot drift. The **P** is the studio's. Only the S carries the orange
-accent cell.
+**Cells are ScripBook's alone.** The 5x5 rounded-cell grid and the ragged month
+belong to the app, geometry and colors copied from
+`ScripBookApp/scripts/make-icons.mjs` so the icon and the site cannot drift.
+There used to be a matching **P** on the same grid for the studio, which is
+exactly why the two read as the same product. It's gone. The only cells left on
+the studio home are inside ScripBook's own section, where they are a picture of
+the app rather than studio identity.
+
+The studio's mark is typographic: the wordmark `prits.apps`, set in Space
+Grotesk with the separator in the accent. The dot is the whole idea, since a
+dot between two lowercase words is how software already gets named, so it says
+what the studio is without an icon or a metaphor.
+
+At favicon size the wordmark is unreadable, so it contracts to its initials and
+keeps the separator: `p.a`, built in `mark-studio.mjs` and shared by the
+favicon and the link preview card. The letters are drawn from a circle and a
+rectangle rather than set in a typeface, because an SVG favicon goes straight
+to the browser and can't carry a web font with it.
+
+## Type and color
+
+| | Studio | ScripBook |
+| --- | --- | --- |
+| Type | Space Grotesk, Inter, IBM Plex Mono | Fraunces |
+| Ground | Cool graphite, `#0E1014` to `#08090B` | Warm espresso, `#241F14` |
+| Accent | Mint, `#5FE3C0` | Gold, `#E8C547` |
+| Mark | `prits.apps` / `p.a` | The S grid and the ragged month |
+
+Opposite on every axis on purpose. The contrast is what keeps a link to the
+studio from looking like a link to the app.
 
 ## Copy rules
 
@@ -61,7 +93,9 @@ accent cell.
 
 ## Privacy policy
 
-Still served from the separate `scripbook-privacy` repo, because that URL is
-what goes to both app stores. Worth folding in under `pritsapps.com/privacy`
-before anything is submitted, since moving it afterwards means updating two
-store listings and shipping an app release.
+Served from here, at `pritsapps.com/privacy/`, which is the URL that goes to
+both app stores. `privacy/index.html` is static and deliberately not
+generated: the wording has to match `PrivacySheet.js` word for word, and a
+generator would invite the two to drift apart. The old `scripbook-privacy`
+repo is now just a redirect, kept because the URL may already be recorded
+somewhere.

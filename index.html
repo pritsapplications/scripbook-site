@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Prits Apps</title>
 <meta name="description" content="Small apps made by one person. A budgeting app that keeps everything on your phone, and a travel tracker anyone can add to.">
-<meta name="theme-color" content="#17150F">
+<meta name="theme-color" content="#0E1014">
 <link rel="canonical" href="https://pritsapps.com/">
 
 <meta property="og:type" content="website">
@@ -13,6 +13,8 @@
 <meta property="og:title" content="Prits Apps">
 <meta property="og:description" content="Small apps made by one person. Each one collects only what it needs to work.">
 <meta property="og:image" content="https://pritsapps.com/og.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Prits Apps">
 <meta name="twitter:description" content="Small apps made by one person. Each one collects only what it needs to work.">
@@ -21,78 +23,98 @@
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#17150F;--surf:#221F16;--accent:#E8C547;--ink:#F6F3EC;--muted:rgba(246, 243, 236, .62)}
+:root{--bg:#0E1014;--surf:#181B21;--accent:#5FE3C0;--ink:#E9EBF0;--muted:rgba(233, 235, 240, .58)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);overflow-x:hidden;
-font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
--webkit-font-smoothing:antialiased;transition:background 1s cubic-bezier(.4,0,.2,1),color .8s}
+font:17px/1.62 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+-webkit-font-smoothing:antialiased;
+transition:background 1s cubic-bezier(.4,0,.2,1),color .8s}
 a{color:inherit}
-.grid{display:grid;color:var(--accent);transition:color .8s}
-.grid i{display:block;width:100%;aspect-ratio:1}
+
+/* The mark: a grotesk wordmark whose separator is the accent. No icon. */
+.logo{font-family:"Space Grotesk",Inter,sans-serif;font-weight:700;letter-spacing:-.035em}
+.logo i{font-style:normal;color:var(--accent);transition:color .8s}
 
 .prog{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:60;
 transition:width .12s linear,background .8s}
-nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;gap:11px;
-padding:18px 30px;backdrop-filter:blur(14px);
-background:color-mix(in srgb,var(--bg) 72%,transparent);transition:background 1s}
-nav .nm{font-weight:700;font-size:17px;letter-spacing:-.01em}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;
+padding:17px 30px;backdrop-filter:blur(14px);
+background:color-mix(in srgb,var(--bg) 70%,transparent);transition:background 1s}
+nav .logo{font-size:17px}
 nav .sp{flex:1}
-nav a{text-decoration:none;font-size:14px;opacity:.7}
+nav a{text-decoration:none;font:500 12px "IBM Plex Mono",monospace;letter-spacing:.08em;
+text-transform:uppercase;opacity:.6}
 
-.sec{min-height:100vh;display:flex;align-items:center;padding:110px 30px}
-.inner{width:100%;max-width:1080px;margin:0 auto}
-.kicker{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);
-font-weight:700;margin-bottom:16px;transition:color .8s}
-h1{font-size:clamp(40px,7.5vw,88px);line-height:1;letter-spacing:-.045em;font-weight:800}
+.sec{min-height:100vh;display:flex;align-items:center;padding:112px 30px}
+.inner{width:100%;max-width:1060px;margin:0 auto}
+.kicker{font:500 11.5px "IBM Plex Mono",monospace;letter-spacing:.18em;text-transform:uppercase;
+color:var(--accent);margin-bottom:18px;transition:color .8s}
+h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(38px,7vw,82px);line-height:1.02;
+letter-spacing:-.045em;font-weight:700}
 h1 em{font-style:normal;color:var(--accent);transition:color .8s}
-h2{font-size:clamp(30px,5.4vw,58px);line-height:1.02;letter-spacing:-.035em;font-weight:800;max-width:17ch}
-.lede{font-size:clamp(17px,2vw,21px);color:var(--muted);max-width:640px;margin-top:22px}
+h2{font-family:"Space Grotesk",sans-serif;font-size:clamp(29px,5.2vw,54px);line-height:1.04;
+letter-spacing:-.035em;font-weight:700;max-width:18ch}
+.lede{font-size:clamp(16.5px,1.9vw,20px);color:var(--muted);max-width:640px;margin-top:20px}
 
-.reveal{opacity:0;transform:translateY(30px);
+.reveal{opacity:0;transform:translateY(28px);
 transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
 .reveal.in{opacity:1;transform:none}
-.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+.d1{transition-delay:.11s}.d2{transition-delay:.22s}.d3{transition-delay:.33s}
 
-.hero{text-align:left}
-.hero .mk{display:inline-block;margin-bottom:34px}
-.cta{display:flex;gap:13px;flex-wrap:wrap;margin-top:34px}
-.btn{background:var(--accent);color:var(--bg);font-weight:700;font-size:16px;padding:15px 30px;
-border-radius:13px;text-decoration:none;transition:transform .25s,background .8s,color .8s}
+.hero{position:relative;overflow:hidden}
+.wm{position:absolute;right:6vw;bottom:13vh;width:min(38vw,440px);pointer-events:none;
+animation:drift 22s ease-in-out infinite alternate}
+@media (max-width:1000px){.wm{display:none}}
+.wm svg{width:100%;height:auto;display:block}
+@keyframes drift{from{transform:translateY(0)}to{transform:translateY(-22px)}}
+.hero .inner{position:relative;z-index:1}
+.hero .kicker{display:flex;align-items:center;gap:11px}
+.hero .kicker b{flex:none;width:26px;height:1px;background:var(--accent);opacity:.7}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.btn{background:var(--accent);color:var(--bg);font:600 15.5px "Inter",sans-serif;
+padding:14px 28px;border-radius:9px;text-decoration:none;
+transition:transform .25s,background .8s,color .8s}
 .btn:hover{transform:translateY(-2px)}
 .btn.ghost{background:transparent;color:var(--ink);
-border:1px solid color-mix(in srgb,var(--ink) 24%,transparent)}
+border:1px solid color-mix(in srgb,var(--ink) 22%,transparent)}
 
-.split{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:60px;align-items:center}
-@media (max-width:900px){.split{grid-template-columns:minmax(0,1fr);gap:36px}}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:58px;align-items:center}
+@media (max-width:900px){.split{grid-template-columns:minmax(0,1fr);gap:34px}}
 
-.month{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;background:var(--surf);
-padding:18px;border-radius:20px;width:100%;max-width:420px;transition:background 1s}
-.d{background:color-mix(in srgb,var(--ink) 7%,transparent);border-radius:9px;aspect-ratio:.86;
-padding:6px;display:flex;flex-direction:column;opacity:0;transform:scale(.86);
-transition:opacity .5s,transform .5s;transition-delay:calc(var(--i)*20ms)}
+/* ScripBook's month. Cells live here and nowhere else on this site. */
+.month{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;background:#2A2418;
+padding:17px;border-radius:16px;width:100%;max-width:400px;
+box-shadow:0 22px 50px rgba(0,0,0,.45)}
+.d{background:rgba(246,243,236,.075);border-radius:6px;aspect-ratio:.86;
+padding:6px;display:flex;flex-direction:column;opacity:0;transform:scale(.88);
+transition:opacity .5s,transform .5s;transition-delay:calc(var(--i)*19ms)}
 .in .d{opacity:1;transform:none}
-.d s{text-decoration:none;font-size:10.5px;opacity:.7}
-.bars{margin-top:auto;display:flex;gap:1.5px;border-radius:3px;overflow:hidden}
+.d s{text-decoration:none;font:400 10px "IBM Plex Mono",monospace;color:rgba(246,243,236,.55)}
+.bars{margin-top:auto;display:flex;gap:1.5px;border-radius:2px;overflow:hidden}
 .bars u{height:5px;flex:1}
 
-.map{display:flex;flex-wrap:wrap;gap:8px;width:100%;max-width:420px}
-.st{font:600 13px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em;
-padding:10px 11px;border-radius:8px;opacity:0;transform:translateY(8px);
-transition:opacity .45s,transform .45s;transition-delay:calc(var(--i)*35ms)}
+.map{display:flex;flex-wrap:wrap;gap:7px;width:100%;max-width:400px}
+.st{font:500 12.5px "IBM Plex Mono",monospace;letter-spacing:.05em;padding:9px 10px;
+border-radius:6px;opacity:0;transform:translateY(8px);
+transition:opacity .45s,transform .45s;transition-delay:calc(var(--i)*33ms)}
 .in .st{opacity:1;transform:none}
-.st.hit{background:#2F4C3B;color:#F4EFE4}
-.st.todo{background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--muted)}
+.st.hit{background:#2F4C3B;color:#F1EFEA}
+.st.todo{background:color-mix(in srgb,var(--ink) 8%,transparent);color:var(--muted)}
 
-ul.plain{list-style:none;margin-top:38px;display:grid;gap:15px;max-width:680px}
-ul.plain li{display:flex;gap:14px;font-size:16.5px;color:var(--muted)}
+ul.plain{list-style:none;margin-top:36px;display:grid;gap:14px;max-width:680px}
+ul.plain li{display:flex;gap:14px;font-size:16px;color:var(--muted)}
 ul.plain b{color:var(--ink);font-weight:600}
-.tick{color:var(--accent);font-weight:700;flex:none;width:16px;transition:color .8s}
+.tick{font:500 12px "IBM Plex Mono",monospace;color:var(--accent);flex:none;width:18px;
+padding-top:3px;transition:color .8s}
 
-footer{padding:70px 30px 90px;text-align:center;color:var(--muted);font-size:14px}
+footer{padding:66px 30px 88px;text-align:center;color:var(--muted);
+font:400 13.5px "IBM Plex Mono",monospace}
 footer a{color:var(--accent);text-decoration:none}
-footer .sp{margin:0 10px;opacity:.4}
+footer .sp{margin:0 9px;opacity:.35}
 @media (prefers-reduced-motion:reduce){
   *{transition-duration:.01ms !important;animation-duration:.01ms !important}
   .reveal,.d,.st{opacity:1;transform:none}
@@ -101,12 +123,12 @@ footer .sp{margin:0 10px;opacity:.4}
 <body>
 
 <div class="prog" id="prog"></div>
-<nav><div class="grid" style="grid-template-columns:repeat(5,5px);gap:1.6px"><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:1;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i><i style="background:currentColor;opacity:0.16;border-radius:1.4px"></i></div><span class="nm">Prits Apps</span>
-<span class="sp"></span><a href="#apps">Apps</a></nav>
+<nav><span class="logo ">prits<i>.</i>apps</span><span class="sp"></span><a href="#apps">Apps</a></nav>
 
-<section class="sec hero" data-bg="#17150F" data-surf="#221F16" data-accent="#E8C547" data-ink="#F6F3EC" data-muted="rgba(246, 243, 236, .62)">
+<section class="sec hero" data-bg="#0E1014" data-surf="#181B21" data-accent="#5FE3C0" data-ink="#E9EBF0" data-muted="rgba(233, 235, 240, .58)">
+  <div class="wm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 440" width="440" height="440"><rect x="0.000" y="81.714" width="50.286" height="276.571" rx="25.143" fill="rgba(233,235,240,.075)"/><circle cx="88.000" cy="169.714" r="62.857" fill="none" stroke="rgba(233,235,240,.075)" stroke-width="50.286"/><circle cx="207.429" cy="238.857" r="27.657" fill="rgba(95,227,192,.55)"/><circle cx="326.857" cy="169.714" r="62.857" fill="none" stroke="rgba(233,235,240,.075)" stroke-width="50.286"/><rect x="389.714" y="81.714" width="50.286" height="176.000" rx="25.143" fill="rgba(233,235,240,.075)"/></svg></div>
   <div class="inner">
-    <div class="reveal in"><span class="mk"><div class="grid" style="grid-template-columns:repeat(5,26px);gap:8px"><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:1;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i><i style="background:currentColor;opacity:0.16;border-radius:6px"></i></div></span></div>
+    <div class="reveal in"><div class="kicker"><b></b>Independent software · Queens, NY</div></div>
     <div class="reveal in d1"><h1>I build the apps<br>I <em>wanted to use</em>.</h1></div>
     <div class="reveal in d2"><p class="lede">One person, no investors, no growth team. Each app
     collects only what it needs to do its job, and the budgeting one collects nothing at all.</p>
@@ -115,7 +137,7 @@ footer .sp{margin:0 10px;opacity:.4}
   </div>
 </section>
 
-<section class="sec" id="apps" data-bg="#241F14" data-surf="#332C1E" data-accent="#E8C547" data-ink="#F6F3EC" data-muted="rgba(246, 243, 236, .62)">
+<section class="sec" id="apps" data-bg="#13161B" data-surf="#1D2128" data-accent="#E8C547" data-ink="#E9EBF0" data-muted="rgba(233, 235, 240, .58)">
   <div class="inner">
     <div class="split">
       <div>
@@ -132,7 +154,7 @@ footer .sp{margin:0 10px;opacity:.4}
   </div>
 </section>
 
-<section class="sec" data-bg="#F4EFE4" data-surf="#ECE4D3" data-accent="#B4472B" data-ink="#26231B" data-muted="rgba(38, 35, 27, .62)">
+<section class="sec" data-bg="#F3F2EF" data-surf="#E7E5E0" data-accent="#A93F24" data-ink="#191817" data-muted="rgba(25, 24, 23, .58)">
   <div class="inner">
     <div class="split">
       <div>
@@ -149,7 +171,7 @@ footer .sp{margin:0 10px;opacity:.4}
   </div>
 </section>
 
-<section class="sec" id="how" data-bg="#0D0D0D" data-surf="#1A1A1A" data-accent="#F2F2F2" data-ink="#F2F2F2" data-muted="rgba(242, 242, 242, .62)">
+<section class="sec" id="how" data-bg="#08090B" data-surf="#121418" data-accent="#5FE3C0" data-ink="#E9EBF0" data-muted="rgba(233, 235, 240, .58)">
   <div class="inner">
     <div class="reveal"><div class="kicker">How I build</div>
     <h2>Only what the app actually needs</h2></div>
@@ -157,15 +179,15 @@ footer .sp{margin:0 10px;opacity:.4}
     everything on your device and never speaks to a server. The other is a public page built to be
     shared. What they have in common is that neither one takes anything it doesn't need to work.</p>
     <ul class="plain">
-      <li><span class="tick">✓</span><span><b>No ads.</b> Not now, not later, not as a
+      <li><span class="tick">01</span><span><b>No ads.</b> Not now, not later, not as a
       subscription you can pay to remove</span></li>
-      <li><span class="tick">✓</span><span><b>No analytics or tracking SDKs.</b> I don't measure
+      <li><span class="tick">02</span><span><b>No analytics or tracking SDKs.</b> I don't measure
       how you use these, because I don't need to</span></li>
-      <li><span class="tick">✓</span><span><b>Nothing sold to anyone.</b> There's no data business
+      <li><span class="tick">03</span><span><b>Nothing sold to anyone.</b> There's no data business
       here, which is what makes the rest of this easy to promise</span></li>
-      <li><span class="tick">✓</span><span><b>No dark patterns.</b> No streaks that punish you, no
+      <li><span class="tick">04</span><span><b>No dark patterns.</b> No streaks that punish you, no
       nagging notifications, no cancellation maze</span></li>
-      <li><span class="tick">✓</span><span><b>Free where I can make it free.</b> ScripBook is free
+      <li><span class="tick">05</span><span><b>Free where I can make it free.</b> ScripBook is free
       with no paywalled features. There's a tip jar if you'd like to</span></li>
     </ul></div>
   </div>
@@ -175,7 +197,7 @@ footer .sp{margin:0 10px;opacity:.4}
   Prits Apps LLC<span class="sp">·</span>
   <a href="/scripbook/">ScripBook</a><span class="sp">·</span>
   <a href="https://hit-50-before-30.vercel.app">Hit 50 Before 30</a><span class="sp">·</span>
-  <a href="https://pritsapps.com/privacy/">Privacy</a><span class="sp">·</span>
+  <a href="/privacy/">Privacy</a><span class="sp">·</span>
   <a href="https://ko-fi.com/pritsapps">Tip jar</a>
 </footer>
 
@@ -183,8 +205,6 @@ footer .sp{margin:0 10px;opacity:.4}
 (function(){
   var root = document.documentElement, secs = document.querySelectorAll('.sec');
 
-  // Repaint into whichever section owns most of the viewport, so the palette
-  // travels rather than snapping at a boundary.
   var paint = new IntersectionObserver(function(es){
     es.forEach(function(e){
       if(e.isIntersecting && e.intersectionRatio > 0.4){
@@ -199,7 +219,6 @@ footer .sp{margin:0 10px;opacity:.4}
   }, { threshold:[0.4,0.6] });
   secs.forEach(function(s){ paint.observe(s); });
 
-  // Reveal once and stay revealed; re-hiding on the way back up reads as a bug.
   var show = new IntersectionObserver(function(es){
     es.forEach(function(e){
       if(e.isIntersecting){ e.target.classList.add('in'); show.unobserve(e.target); }
