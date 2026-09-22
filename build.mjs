@@ -306,7 +306,7 @@ ${sec("price","white","The price","Free. Here's the catch: there isn't one.",
 ${scrollCue()}
 
 <footer><a href="/">Prits Apps</a> &nbsp;·&nbsp; ScripBook, a budgeting app that stays on your phone. &nbsp;·&nbsp;
-<a href="https://pritsapplications.github.io/scripbook-privacy/">Privacy</a></footer>
+<a href="https://pritsapps.com/privacy/">Privacy</a></footer>
 
 <script>
 (function(){
