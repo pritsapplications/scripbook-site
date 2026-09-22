@@ -13,7 +13,8 @@ import fs from "fs";
 import { markSvg } from "./mark-studio.mjs";
 
 const SITE = "https://pritsapps.com/";
-const ACCENT = "#5FE3C0";   // cool mint. Gold's opposite, on purpose.
+const ACCENT = process.env.ACCENT || "#5FE3C0";   // the one color the studio owns
+const OUT = process.env.OUT || "index.html";
 
 // A tonal run through neutrals rather than a tour of other people's palettes.
 // Each app's own colour appears only as an accent, never as the ground.
@@ -179,9 +180,9 @@ footer .sp{margin:0 9px;opacity:.35}
 <nav>${logo()}<span class="sp"></span><a href="#apps">Apps</a></nav>
 
 <section class="sec hero" ${attrs("ink")}>
-  <div class="wm">${markSvg(440, { bg: null, span: 1, ink: "rgba(233,235,240,.075)", accent: "rgba(95,227,192,.55)" })}</div>
+  <div class="wm">${markSvg(440, { bg: null, span: 1, ink: "rgba(233,235,240,.075)", accent: ACCENT + "8C" })}</div>
   <div class="inner">
-    <div class="reveal in"><div class="kicker"><b></b>Independent software · Queens, NY</div></div>
+    <div class="reveal in"><div class="kicker"><b></b>Independent software</div></div>
     <div class="reveal in d1"><h1>I build the apps<br>I <em>wanted to use</em>.</h1></div>
     <div class="reveal in d2"><p class="lede">One person, no investors, no growth team. Each app
     collects only what it needs to do its job, and the budgeting one collects nothing at all.</p>
@@ -288,5 +289,5 @@ footer .sp{margin:0 9px;opacity:.35}
 </script>
 </body></html>`;
 
-fs.writeFileSync(new URL("index.html", import.meta.url), html);
-console.log("built index.html,", html.length, "bytes");
+fs.writeFileSync(new URL(OUT, import.meta.url), html);
+console.log("built " + OUT + ",", html.length, "bytes");
