@@ -12,6 +12,7 @@
 // depends on the network is a card that silently comes out in Times.
 import fs from "fs";
 import { markSvg } from "./mark-studio.mjs";
+import { HEAT, CAT, MIX, ramp } from "./month.mjs";
 
 const STUDIO = process.argv.includes("--studio");
 
@@ -30,13 +31,20 @@ const mark = (cell, gap, radius) => {
   return `<div class="mk" style="grid-template-columns:repeat(5,${cell}px);gap:${gap}px">${out}</div>`;
 };
 
-// The same month as the site's hero, at card scale.
-const spend = {3:["#8B5A83"],5:["#5C7A52","#B54834"],9:["#3D6B87"],11:["#5C7A52"],
-  16:["#B54834","#7A6A53"],18:["#5C7A52"],22:["#3D6B87","#8B5A83"],24:["#B54834"],27:["#5C7A52"]};
+// The same month as the ScripBook section on the studio home, at card scale.
+// It used to draw category bars alone, so a link shared in a message showed an
+// app without the feature that makes it worth having.
 let days = "";
 for (let d = 1; d <= 28; d++) {
-  const bars = (spend[d] || []).map((c) => `<u style="background:${c}"></u>`).join("");
-  days += `<div class="d"><s>${d}</s><div class="bars">${bars}</div></div>`;
+  const p = HEAT[d];
+  const mix = MIX[d] || [];
+  const bar = mix.length
+    ? `<u>${mix.map(([id, w]) =>
+        `<b style="flex:${w};background:${CAT[id]}"></b>`).join("")}</u>`
+    : "";
+  days += p > 0
+    ? `<div class="d hot" style="background:${ramp(p)}"><s>${d}</s>${bar}</div>`
+    : `<div class="d"><s>${d}</s></div>`;
 }
 
 const scripbook = `<meta charset="utf-8"><style>
@@ -57,8 +65,11 @@ display:grid;grid-template-columns:repeat(7,1fr);gap:7px}
 .d{background:rgba(246,243,236,.07);border-radius:8px;aspect-ratio:.86;padding:5px;
 display:flex;flex-direction:column}
 .d s{text-decoration:none;font-size:11px;opacity:.7}
-.bars{margin-top:auto;display:flex;gap:1.5px;border-radius:3px;overflow:hidden}
-.bars u{height:5px;flex:1}
+/* Every step of the classic ramp is light enough that the app picks its dark
+   ink for the number, so there is no per-day contrast decision here. */
+.d.hot s{color:#16150F;opacity:1;font-weight:600}
+.d u{margin-top:auto;display:flex;height:5px;border-radius:2px;overflow:hidden}
+.d u b{display:block}
 </style>
 <div class="left">
   <div class="brand">${mark(17, 5, 4)}<span>ScripBook</span></div>
