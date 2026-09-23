@@ -217,7 +217,7 @@ footer .sp{margin:0 9px;opacity:.35}
   <div class="wm">${markSvg(440, { bg: null, span: 1, ink: "rgba(233,235,240,.075)", accent: ACCENT + "8C" })}</div>
   <div class="inner">
     <div class="reveal in"><div class="kicker"><b></b>Independent software</div></div>
-    <div class="reveal in d1"><h1>I build the apps<br>I <em>wanted to use</em>.</h1></div>
+    <div class="reveal in d1"><h1>I build the apps<br>I <em>wish I had</em>.</h1></div>
     <div class="reveal in d2"><p class="lede">One person, no investors, no growth team. Each app
     collects only what it needs to do its job, and the budgeting one collects nothing at all.</p>
     <div class="cta"><a class="btn" href="#apps">See what's here</a>

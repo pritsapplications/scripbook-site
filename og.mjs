@@ -106,7 +106,7 @@ display:flex;align-items:center;justify-content:center}
 </style>
 <div class="left">
   <div class="word">prits<i>.</i>apps</div>
-  <h1>I build the apps<br>I <em>wanted to use</em>.</h1>
+  <h1>I build the apps<br>I <em>wish I had</em>.</h1>
   <p>Small apps, made by one person.</p>
   <div class="rule"><b></b>pritsapps.com</div>
 </div>
