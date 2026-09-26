@@ -38,18 +38,14 @@ const attrs = (k) =>
 // between two lowercase words reads the way developers already name things, so
 // it says "software" without an icon, a metaphor, or a borrowed grid.
 
-// Decide Already's own mark, a penny caught mid-flip. Its copper appears here
-// only as the accent, the same rule the other two apps follow.
+// Decide Already's own mark, a question mark whose dot is a copper penny.
+// Its copper appears here only as the accent, the same rule the other two
+// apps follow.
 const pennyFlip = `<svg class="flip" viewBox="0 0 100 100" aria-hidden="true">
-  <path d="M20 60 A32 32 0 0 1 78 44" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/>
-  <path d="M72 36 L84 46 L70 52 Z" fill="currentColor"/>
-  <g transform="rotate(-12 49 66)">
-    <ellipse cx="49" cy="70" rx="28.5" ry="12.4" fill="#7E3D1F"/>
-    <rect x="20.5" y="66" width="57" height="4" fill="#7E3D1F"/>
-    <ellipse cx="49" cy="66" rx="28.5" ry="12.4" fill="#A9562F"/>
-    <ellipse cx="49" cy="66" rx="25.6" ry="10.8" fill="#C47447"/>
-    <ellipse cx="43.3" cy="61.2" rx="14.2" ry="3.4" fill="#D68C60"/>
-  </g>
+  <path d="M34 34 C34 18 66 18 66 34 C66 46 50 47 50 60" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="50" cy="78" r="9" fill="#A9562F"/>
+  <circle cx="50" cy="78" r="7.6" fill="#C47447"/>
+  <circle cx="47.7" cy="75.5" r="2.5" fill="#D68C60"/>
 </svg>`;
 const logo = (cls = "") => `<span class="logo ${cls}">prits<i>.</i>apps</span>`;
 
@@ -215,7 +211,7 @@ ul.plain b{color:var(--ink);font-weight:600}
 padding-top:3px;transition:color .8s}
 
 .flipwrap{display:flex;justify-content:center;color:var(--ink);transition:color .8s}
-.flip{width:min(340px,72vw);height:auto}
+.flip{width:min(300px,64vw);height:auto}
 
 footer{padding:66px 30px 88px;text-align:center;color:var(--muted);
 font:400 13.5px "IBM Plex Mono",monospace}
