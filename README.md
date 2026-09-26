@@ -12,12 +12,13 @@ and headless Chrome for the images.
 
 | Path | Source | What it is |
 | --- | --- | --- |
-| `index.html` | `studio.mjs` | Studio home: who this is, the two apps, how they're built |
+| `index.html` | `studio.mjs` | Studio home: who this is, the apps, how they're built |
 | `scripbook/index.html` | `build.mjs` | The ScripBook product page |
 | `og.png` | `og.sh --studio` | Link preview card for the home |
 | `scripbook/og.png` | `og.sh` | Link preview card for ScripBook |
 | `favicon.ico`, `icon.svg`, `apple-touch-icon.png` | `favicon.sh` | Studio icons, the `p.a` mark |
 | `scripbook/favicon.ico`, `.svg`, `apple-touch-icon.png` | `favicon.sh` | ScripBook icons, the app's S grid |
+| `decide-already/` | `DecideAlready/scripts/publish-web.sh` | The Decide Already web app itself (an Expo web export). Not generated here; `build.sh` leaves it alone |
 | `CNAME` | `build.sh` | `pritsapps.com` |
 
 `src/` holds generated intermediates and is gitignored.
@@ -123,10 +124,15 @@ number whenever a mark actually changes.
   honest common ground is no ads, no trackers, nothing sold, and only the data
   an app needs to work.
 
-## The two apps
+## The apps
 
 - **ScripBook**, iOS and Android, not yet submitted. Source in the private
   `ScripBook` repo.
+- **Decide Already**, iOS and Android not yet submitted, and the full app live
+  on the web at `pritsapps.com/decide-already/`. Source in the private
+  `decide-already` repo (`~/Desktop/Dev/DecideAlready`). To update the web
+  version, run `scripts/publish-web.sh` there, then commit and push this repo.
+  Its privacy policy lives in the separate `decide-already-privacy` repo.
 - **Hit 50 Before 30**, live at https://hit-50-before-30.vercel.app , Next.js
   on Vercel with a Neon Postgres database. Source in `hit-50-before-30`.
 

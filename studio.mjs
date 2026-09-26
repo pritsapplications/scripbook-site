@@ -23,6 +23,7 @@ const P = {
   ink:   { bg:"#0E1014", surf:"#181B21", accent:ACCENT,   ink:"#E9EBF0" },
   slate: { bg:"#13161B", surf:"#1D2128", accent:"#E8C547", ink:"#E9EBF0" },  // ScripBook
   bone:  { bg:"#F3F2EF", surf:"#E7E5E0", accent:"#A93F24", ink:"#191817" },  // Hit 50
+  steel: { bg:"#111316", surf:"#1B1E23", accent:"#D0703F", ink:"#E9EBF0" },  // Decide Already
   coal:  { bg:"#08090B", surf:"#121418", accent:ACCENT,   ink:"#E9EBF0" },
 };
 const muted = (hex) => {
@@ -36,6 +37,20 @@ const attrs = (k) =>
 // The mark is the name, set properly. The separator is the whole idea: a dot
 // between two lowercase words reads the way developers already name things, so
 // it says "software" without an icon, a metaphor, or a borrowed grid.
+
+// Decide Already's own mark, a penny caught mid-flip. Its copper appears here
+// only as the accent, the same rule the other two apps follow.
+const pennyFlip = `<svg class="flip" viewBox="0 0 100 100" aria-hidden="true">
+  <path d="M20 60 A32 32 0 0 1 78 44" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M72 36 L84 46 L70 52 Z" fill="currentColor"/>
+  <g transform="rotate(-12 49 66)">
+    <ellipse cx="49" cy="70" rx="28.5" ry="12.4" fill="#7E3D1F"/>
+    <rect x="20.5" y="66" width="57" height="4" fill="#7E3D1F"/>
+    <ellipse cx="49" cy="66" rx="28.5" ry="12.4" fill="#A9562F"/>
+    <ellipse cx="49" cy="66" rx="25.6" ry="10.8" fill="#C47447"/>
+    <ellipse cx="43.3" cy="61.2" rx="14.2" ry="3.4" fill="#D68C60"/>
+  </g>
+</svg>`;
 const logo = (cls = "") => `<span class="logo ${cls}">prits<i>.</i>apps</span>`;
 
 // ScripBook's own month, shown inside ScripBook's own section. This is the one
@@ -199,6 +214,9 @@ ul.plain b{color:var(--ink);font-weight:600}
 .tick{font:500 12px "IBM Plex Mono",monospace;color:var(--accent);flex:none;width:18px;
 padding-top:3px;transition:color .8s}
 
+.flipwrap{display:flex;justify-content:center;color:var(--ink);transition:color .8s}
+.flip{width:min(340px,72vw);height:auto}
+
 footer{padding:66px 30px 88px;text-align:center;color:var(--muted);
 font:400 13.5px "IBM Plex Mono",monospace}
 footer a{color:var(--accent);text-decoration:none}
@@ -260,13 +278,30 @@ footer .sp{margin:0 9px;opacity:.35}
   </div>
 </section>
 
+<section class="sec" ${attrs("steel")}>
+  <div class="inner">
+    <div class="split">
+      <div>
+        <div class="reveal"><div class="kicker">Live on the web · iOS and Android coming soon</div>
+        <h2>Decide Already</h2></div>
+        <div class="reveal d1"><p class="lede">Can't pick? Flip a penny, roll any dice, spin your own
+        wheel, draw straws, or let everyone put a finger down. Eleven quick ways to settle it, every
+        one of them fair. It runs right here in your browser, and nothing you do leaves your device.</p>
+        <div class="cta"><a class="btn" href="/decide-already/">Open Decide Already</a></div></div>
+      </div>
+      <div class="reveal d2 flipwrap">${pennyFlip}</div>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="how" ${attrs("coal")}>
   <div class="inner">
     <div class="reveal"><div class="kicker">How I build</div>
     <h2>Only what the app actually needs</h2></div>
-    <div class="reveal d1"><p class="lede">These two apps work in opposite ways. One keeps
-    everything on your device and never speaks to a server. The other is a public page built to be
-    shared. What they have in common is that neither one takes anything it doesn't need to work.</p>
+    <div class="reveal d1"><p class="lede">These apps work in different ways. ScripBook and Decide
+    Already keep everything on your device and never speak to a server. Hit 50 is a public page built
+    to be shared. What they have in common is that none of them takes anything it doesn't need to
+    work.</p>
     <ul class="plain">
       <li><span class="tick">01</span><span><b>No ads.</b> Not now, not later, not as a
       subscription you can pay to remove</span></li>
@@ -286,6 +321,7 @@ footer .sp{margin:0 9px;opacity:.35}
   Prits Apps LLC<span class="sp">·</span>
   <a href="/scripbook/">ScripBook</a><span class="sp">·</span>
   <a href="https://hit-50-before-30.vercel.app">Hit 50 Before 30</a><span class="sp">·</span>
+  <a href="/decide-already/">Decide Already</a><span class="sp">·</span>
   <a href="/privacy/">Privacy</a><span class="sp">·</span>
   <a href="https://ko-fi.com/pritsapps">Tip jar</a>
 </footer>
