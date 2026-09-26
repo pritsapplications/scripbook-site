@@ -20,6 +20,7 @@ and headless Chrome for the images.
 | `scripbook/favicon.ico`, `.svg`, `apple-touch-icon.png` | `favicon.sh` | ScripBook icons, the app's S grid |
 | `decide-already/` | `DecideAlready/scripts/publish-web.sh` | The Decide Already web app itself (an Expo web export). Not generated here; `build.sh` leaves it alone |
 | `CNAME` | `build.sh` | `pritsapps.com` |
+| `.nojekyll` | by hand | Stops GitHub Pages running Jekyll, which would drop `decide-already/_expo/` (folders starting with `_`) and break the web app |
 
 `src/` holds generated intermediates and is gitignored.
 
