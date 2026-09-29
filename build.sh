@@ -8,8 +8,11 @@ node build.mjs
 ./favicon.sh > /dev/null && echo "built icons: p.a at the root, S grid in scripbook/"
 ./og.sh > /dev/null && echo "built og.png and scripbook/og.png"
 printf 'pritsapps.com\n' > CNAME
-# privacy/index.html is a static copy of the policy, deliberately not generated:
-# the wording has to match the in-app copy in PrivacySheet.js word for word, and
-# a generator would invite them to drift apart.
-test -f privacy/index.html && echo "privacy/index.html present (static, not generated)"
+# The privacy pages are static, deliberately not generated. Each app keeps its
+# own: scripbook/privacy/ has to match the in-app copy in PrivacySheet.js word
+# for word, and a generator would invite them to drift apart. privacy/ is only
+# a chooser that links to each app's policy; the studio has none of its own.
+for f in privacy/index.html scripbook/privacy/index.html decide-already/privacy/index.html; do
+  test -f "$f" && echo "$f present (static, not generated)"
+done
 echo "CNAME -> pritsapps.com"

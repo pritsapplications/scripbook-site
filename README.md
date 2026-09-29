@@ -133,15 +133,24 @@ number whenever a mark actually changes.
   on the web at `pritsapps.com/decide-already/`. Source in the private
   `decide-already` repo (`~/Desktop/Dev/DecideAlready`). To update the web
   version, run `scripts/publish-web.sh` there, then commit and push this repo.
-  Its privacy policy lives in the separate `decide-already-privacy` repo.
+  Its privacy and support pages live here in `decide-already/privacy/`, and
+  `publish-web.sh` carries them across when it swaps in a new web build.
 - **Hit 50 Before 30**, live at https://hit-50-before-30.vercel.app , Next.js
   on Vercel with a Neon Postgres database. Source in `hit-50-before-30`.
 
-## Privacy policy
+## Privacy policies
 
-Served from here, at `pritsapps.com/privacy/`, which is the URL that goes to
-both app stores. `privacy/index.html` is static and deliberately not
-generated: the wording has to match `PrivacySheet.js` word for word, and a
-generator would invite the two to drift apart. The old `scripbook-privacy`
-repo is now just a redirect, kept because the URL may already be recorded
-somewhere.
+Every app has its own policy, kept on this site next to the app. The studio
+has no policy of its own.
+
+| URL | Page |
+| --- | --- |
+| `pritsapps.com/privacy/` | Chooser: a card per app linking to its policy. Add a card when a new app ships |
+| `pritsapps.com/scripbook/privacy/` | ScripBook's policy (goes to both app stores) |
+| `pritsapps.com/decide-already/privacy/` | Decide Already's policy, plus `support.html` |
+
+All three are static and deliberately not generated. ScripBook's wording has
+to match `PrivacySheet.js` word for word, and a generator would invite the two
+to drift apart. The old `scripbook-privacy` and `decide-already-privacy`
+GitHub Pages repos are now just redirects to these, kept because those URLs
+may already be recorded somewhere.
