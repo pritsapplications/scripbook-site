@@ -12,7 +12,7 @@ printf 'pritsapps.com\n' > CNAME
 # own: scripbook/privacy/ has to match the in-app copy in PrivacySheet.js word
 # for word, and a generator would invite them to drift apart. privacy/ is only
 # a chooser that links to each app's policy; the studio has none of its own.
-for f in privacy/index.html scripbook/privacy/index.html decide-already/privacy/index.html; do
+for f in privacy/index.html scripbook/privacy/index.html decide-already/privacy/index.html hit-50-before-30/privacy/index.html; do
   test -f "$f" && echo "$f present (static, not generated)"
 done
 echo "CNAME -> pritsapps.com"

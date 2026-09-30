@@ -148,6 +148,7 @@ has no policy of its own.
 | `pritsapps.com/privacy/` | Chooser: a card per app linking to its policy. Add a card when a new app ships |
 | `pritsapps.com/scripbook/privacy/` | ScripBook's policy (goes to both app stores) |
 | `pritsapps.com/decide-already/privacy/` | Decide Already's policy, plus `support.html` |
+| `pritsapps.com/hit-50-before-30/privacy/` | Hit 50 Before 30's policy (the tracker itself is on Vercel and links here) |
 
 All three are static and deliberately not generated. ScripBook's wording has
 to match `PrivacySheet.js` word for word, and a generator would invite the two
