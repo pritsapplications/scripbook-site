@@ -5,6 +5,7 @@ set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
 node studio.mjs
 node build.mjs
+node import.mjs
 ./favicon.sh > /dev/null && echo "built icons: p.a at the root, S grid in scripbook/"
 ./og.sh > /dev/null && echo "built og.png and scripbook/og.png"
 printf 'pritsapps.com\n' > CNAME
