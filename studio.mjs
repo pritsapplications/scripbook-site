@@ -24,6 +24,7 @@ const P = {
   slate: { bg:"#13161B", surf:"#1D2128", accent:"#E8C547", ink:"#E9EBF0" },  // ScripBook
   bone:  { bg:"#F3F2EF", surf:"#E7E5E0", accent:"#A93F24", ink:"#191817" },  // Hit 50
   steel: { bg:"#111316", surf:"#1B1E23", accent:"#D0703F", ink:"#E9EBF0" },  // Decide Already
+  tide:  { bg:"#101317", surf:"#1A1E22", accent:"#3FA89E", ink:"#E9EBF0" },  // You In?
   coal:  { bg:"#08090B", surf:"#121418", accent:ACCENT,   ink:"#E9EBF0" },
 };
 const muted = (hex) => {
@@ -46,6 +47,16 @@ const pennyFlip = `<svg class="flip" viewBox="0 0 100 100" aria-hidden="true">
   <circle cx="50" cy="78" r="9" fill="#A9562F"/>
   <circle cx="50" cy="78" r="7.6" fill="#C47447"/>
   <circle cx="47.7" cy="75.5" r="2.5" fill="#D68C60"/>
+</svg>`;
+
+// You In?'s own mark, two footprints walking together. Its orange and teal
+// are the app's real colors, hardcoded the same way the penny's copper is,
+// not tied to this section's studio accent.
+const footprints = `<svg class="prints" viewBox="0 0 64 64" aria-hidden="true">
+  <g fill="#D9622B"><ellipse cx="24" cy="38" rx="6" ry="9" transform="rotate(-10 24 38)"/>
+  <circle cx="20" cy="27" r="2"/><circle cx="24" cy="25" r="2"/><circle cx="28" cy="26" r="2"/></g>
+  <g fill="#1F7A8C"><ellipse cx="40" cy="28" rx="6" ry="9" transform="rotate(10 40 28)"/>
+  <circle cx="36" cy="40" r="2"/><circle cx="40" cy="42" r="2"/><circle cx="44" cy="41" r="2"/></g>
 </svg>`;
 const logo = (cls = "") => `<span class="logo ${cls}">prits<i>.</i>apps</span>`;
 
@@ -213,6 +224,9 @@ padding-top:3px;transition:color .8s}
 .flipwrap{display:flex;justify-content:center;color:var(--ink);transition:color .8s}
 .flip{width:min(300px,64vw);height:auto}
 
+.printswrap{display:flex;justify-content:center}
+.prints{width:min(220px,48vw);height:auto}
+
 footer{padding:66px 30px 88px;text-align:center;color:var(--muted);
 font:400 13.5px "IBM Plex Mono",monospace}
 footer a{color:var(--accent);text-decoration:none}
@@ -290,6 +304,23 @@ footer .sp{margin:0 9px;opacity:.35}
   </div>
 </section>
 
+<section class="sec" ${attrs("tide")}>
+  <div class="inner">
+    <div class="split">
+      <div>
+        <div class="reveal"><div class="kicker">Live on the web</div>
+        <h2>You In?</h2></div>
+        <div class="reveal d1"><p class="lede">Not my trip, anyone's. Sign in, list the places you
+        want to go, and share the link. Friends can drop a tip in the comments or quietly volunteer
+        to come along, and only you see who did. Anyone can start their own board for their own
+        reasons, it isn't just mine.</p>
+        <div class="cta"><a class="btn" href="https://you-in-app.vercel.app">Open You In?</a></div></div>
+      </div>
+      <div class="reveal d2 printswrap">${footprints}</div>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="how" ${attrs("coal")}>
   <div class="inner">
     <div class="reveal"><div class="kicker">How I build</div>
@@ -318,6 +349,7 @@ footer .sp{margin:0 9px;opacity:.35}
   <a href="/scripbook/">ScripBook</a><span class="sp">·</span>
   <a href="https://hit-50-before-30.vercel.app">Hit 50 Before 30</a><span class="sp">·</span>
   <a href="/decide-already/">Decide Already</a><span class="sp">·</span>
+  <a href="https://you-in-app.vercel.app">You In?</a><span class="sp">·</span>
   <a href="/privacy/">Privacy</a><span class="sp">·</span>
   <a href="https://ko-fi.com/pritsapps">Tip jar</a>
 </footer>
