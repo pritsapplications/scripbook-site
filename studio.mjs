@@ -22,9 +22,8 @@ const OUT = process.env.OUT || "index.html";
 const P = {
   ink:   { bg:"#0E1014", surf:"#181B21", accent:ACCENT,   ink:"#E9EBF0" },
   slate: { bg:"#13161B", surf:"#1D2128", accent:"#E8C547", ink:"#E9EBF0" },  // ScripBook
-  bone:  { bg:"#F3F2EF", surf:"#E7E5E0", accent:"#A93F24", ink:"#191817" },  // Hit 50
   steel: { bg:"#111316", surf:"#1B1E23", accent:"#D0703F", ink:"#E9EBF0" },  // Decide Already
-  tide:  { bg:"#101317", surf:"#1A1E22", accent:"#3FA89E", ink:"#E9EBF0" },  // You In?
+  tide:  { bg:"#101317", surf:"#1A1E22", accent:"#D9622B", ink:"#E9EBF0" },  // You In?, its own orange
   coal:  { bg:"#08090B", surf:"#121418", accent:ACCENT,   ink:"#E9EBF0" },
 };
 const muted = (hex) => {
@@ -39,25 +38,37 @@ const attrs = (k) =>
 // between two lowercase words reads the way developers already name things, so
 // it says "software" without an icon, a metaphor, or a borrowed grid.
 
-// Decide Already's own mark, a question mark whose dot is a copper penny.
-// Its copper appears here only as the accent, the same rule the other two
-// apps follow.
-const pennyFlip = `<svg class="flip" viewBox="0 0 100 100" aria-hidden="true">
-  <path d="M34 34 C34 18 66 18 66 34 C66 46 50 47 50 60" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <circle cx="50" cy="78" r="9" fill="#A9562F"/>
-  <circle cx="50" cy="78" r="7.6" fill="#C47447"/>
-  <circle cx="47.7" cy="75.5" r="2.5" fill="#D68C60"/>
-</svg>`;
+// Decide Already's own wheel, a preview card rather than a lone icon, same
+// idea as ScripBook's month below. The card and wheel colors are lifted
+// straight from the app's own light theme (src/theme.js), not invented for
+// the site, so it reads as the actual tool rather than a logo standing in
+// for it.
+const wheel = `<div class="wheelcard">
+  <div class="wheel-dial"><div class="wheel-pointer"></div><div class="wheel-ball"></div></div>
+  <div class="wheel-row"><span class="pill">Penny</span><span class="pill">Dice</span>
+  <span class="pill active">Wheel</span><span class="pill">Straws</span></div>
+</div>`;
 
-// You In?'s own mark, two footprints walking together. Its orange and teal
-// are the app's real colors, hardcoded the same way the penny's copper is,
-// not tied to this section's studio accent.
-const footprints = `<svg class="prints" viewBox="0 0 64 64" aria-hidden="true">
+// You In?'s own mark, two footprints walking together, sized down to sit in
+// a header rather than stand alone. Orange and teal are the app's real
+// colors, hardcoded the same way the wheel's copper is above.
+const footprintsIcon = (size) => `<svg width="${size}" height="${size}" viewBox="0 0 64 64" aria-hidden="true">
   <g fill="#D9622B"><ellipse cx="24" cy="38" rx="6" ry="9" transform="rotate(-10 24 38)"/>
   <circle cx="20" cy="27" r="2"/><circle cx="24" cy="25" r="2"/><circle cx="28" cy="26" r="2"/></g>
   <g fill="#1F7A8C"><ellipse cx="40" cy="28" rx="6" ry="9" transform="rotate(10 40 28)"/>
   <circle cx="36" cy="40" r="2"/><circle cx="40" cy="42" r="2"/><circle cx="44" cy="41" r="2"/></g>
 </svg>`;
+
+// You In?'s own board, a preview card in the app's actual paper and ink,
+// the same approach as the wheel above: real colors, not a logo.
+const board = `<div class="board">
+  <div class="board-top">${footprintsIcon(22)}<b>Pacific Loop</b></div>
+  <div class="board-row"><span class="chk">&#10003;</span>Olympic National Park</div>
+  <div class="board-row"><span class="chk">&#10003;</span>Mount Rainier</div>
+  <div class="board-row"><span class="vol">+2</span>North Cascades</div>
+  <div class="board-row"><span class="vol">+1</span>San Juan Islands</div>
+  <div class="board-link">you-in-app.vercel.app/b/pacific-loop</div>
+</div>`;
 const logo = (cls = "") => `<span class="logo ${cls}">prits<i>.</i>apps</span>`;
 
 // ScripBook's own month, shown inside ScripBook's own section. This is the one
@@ -94,17 +105,12 @@ for (let d = 1; d <= 28; d++) {
     : `<div class="d" style="--i:${d}"><s>${d}</s></div>`;
 }
 
-const HIT = ["NY","NJ","PA","CT","MA","FL","CA","NV","AZ","VT","NH","ME"];
-const TODO = ["TX","WA","OR","CO","UT","MT","IL","MI","OH","GA","NC","HI"];
-const chips = (list, cls) => list.map((s, i) =>
-  `<span class="st ${cls}" style="--i:${i}">${s}</span>`).join("");
-
 const html = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Prits Apps</title>
-<meta name="description" content="Small apps made by one person. A budgeting app that keeps everything on your phone, and a travel tracker anyone can add to.">
+<meta name="description" content="Small apps made by one person. A budgeting app that keeps everything on your phone, and a shared board anyone can plan a trip on.">
 <meta name="theme-color" content="${P.ink.bg}">
 <link rel="canonical" href="${SITE}">
 
@@ -207,25 +213,46 @@ color:var(--muted);transition:color .8s}
 .leg i{flex:1;height:5px;border-radius:3px;
 background:linear-gradient(90deg,hsl(130 48% 72%),hsl(65 64% 64%),hsl(0 80% 56%))}
 
-.map{display:flex;flex-wrap:wrap;gap:7px;width:100%;max-width:400px}
-.st{font:500 12.5px "IBM Plex Mono",monospace;letter-spacing:.05em;padding:9px 10px;
-border-radius:6px;opacity:0;transform:translateY(8px);
-transition:opacity .45s,transform .45s;transition-delay:calc(var(--i)*33ms)}
-.in .st{opacity:1;transform:none}
-.st.hit{background:#2F4C3B;color:#F1EFEA}
-.st.todo{background:color-mix(in srgb,var(--ink) 8%,transparent);color:var(--muted)}
-
 ul.plain{list-style:none;margin-top:36px;display:grid;gap:14px;max-width:680px}
 ul.plain li{display:flex;gap:14px;font-size:16px;color:var(--muted)}
 ul.plain b{color:var(--ink);font-weight:600}
 .tick{font:500 12px "IBM Plex Mono",monospace;color:var(--accent);flex:none;width:18px;
 padding-top:3px;transition:color .8s}
 
-.flipwrap{display:flex;justify-content:center;color:var(--ink);transition:color .8s}
-.flip{width:min(300px,64vw);height:auto}
+/* Decide Already's wheel, lifted from its own light theme: #F5F3EF ground,
+   #B0502A copper, #17171A ink. A card rather than a lone icon, same move as
+   ScripBook's month and You In?'s board below. */
+.wheelcard{background:#F5F3EF;border:1px solid #DDD8CF;border-radius:16px;padding:26px 24px;
+width:100%;max-width:400px;box-shadow:0 22px 50px rgba(0,0,0,.45);
+display:flex;flex-direction:column;align-items:center;gap:18px}
+.wheel-dial{width:150px;height:150px;border-radius:50%;position:relative;
+box-shadow:inset 0 0 0 1px #DDD8CF;
+background:conic-gradient(#E6E1D8 0deg 60deg,#D6CFC3 60deg 120deg,#C7BEB0 120deg 180deg,
+#B0502A 180deg 240deg,#D6CFC3 240deg 300deg,#E6E1D8 300deg 360deg)}
+.wheel-ball{position:absolute;top:50%;left:50%;width:22px;height:22px;border-radius:50%;
+background:#17171A;transform:translate(-50%,-50%);box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.wheel-pointer{position:absolute;top:-8px;left:50%;width:0;height:0;transform:translateX(-50%);
+border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:14px solid #17171A}
+.wheel-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.pill{font:500 11.5px "IBM Plex Mono",monospace;letter-spacing:.04em;padding:7px 11px;
+border-radius:7px;background:#ECE8E1;color:#6B6760}
+.pill.active{background:#B0502A;color:#F5F3EF}
 
-.printswrap{display:flex;justify-content:center}
-.prints{width:min(220px,48vw);height:auto}
+/* You In?'s board, in its own paper and ink: #FBF3E7, #2B1D14, orange for a
+   done place, teal for a volunteer. The same real-colors-not-a-logo move. */
+.board{background:#FBF3E7;border:1px solid #E6D5BC;border-radius:16px;padding:22px 24px;
+width:100%;max-width:400px;box-shadow:0 22px 50px rgba(0,0,0,.45);font-family:"Inter",sans-serif}
+.board-top{display:flex;align-items:center;gap:10px;margin-bottom:14px;
+font:600 15px "Space Grotesk",sans-serif;color:#2B1D14}
+.board-row{display:flex;align-items:center;gap:10px;padding:9px 0;font-size:14.5px;
+color:#2B1D14;border-top:1px solid #E6D5BC}
+.board-row:first-of-type{border-top:none}
+.chk{width:20px;height:20px;border-radius:50%;background:#D9622B;color:#FBF3E7;
+font:700 11px/20px "Inter",sans-serif;text-align:center;flex:none}
+.vol{min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:#1F7A8C;color:#FBF3E7;
+font:700 11px/20px "IBM Plex Mono",monospace;text-align:center;flex:none}
+.board-link{margin-top:14px;padding-top:12px;border-top:1px dashed #E6D5BC;
+font:500 11.5px "IBM Plex Mono",monospace;letter-spacing:.03em;color:#6B5A48}
 
 footer{padding:66px 30px 88px;text-align:center;color:var(--muted);
 font:400 13.5px "IBM Plex Mono",monospace}
@@ -233,7 +260,7 @@ footer a{color:var(--accent);text-decoration:none}
 footer .sp{margin:0 9px;opacity:.35}
 @media (prefers-reduced-motion:reduce){
   *{transition-duration:.01ms !important;animation-duration:.01ms !important}
-  .reveal,.d,.st{opacity:1;transform:none}
+  .reveal,.d{opacity:1;transform:none}
 }
 </style></head>
 <body>
@@ -271,23 +298,6 @@ footer .sp{margin:0 9px;opacity:.35}
   </div>
 </section>
 
-<section class="sec" ${attrs("bone")}>
-  <div class="inner">
-    <div class="split">
-      <div>
-        <div class="reveal"><div class="kicker">Live on the web</div>
-        <h2>Hit 50 Before 30</h2></div>
-        <div class="reveal d1"><p class="lede">Fifty states, one deadline. A travel tracker anyone
-        with the link can browse: see where I've been and where's left, volunteer to come along for
-        a trip, or leave a recommendation for somewhere I haven't reached yet. No account needed to
-        join in.</p>
-        <div class="cta"><a class="btn" href="https://hit-50-before-30.vercel.app">Open the tracker</a></div></div>
-      </div>
-      <div class="map reveal d2">${chips(HIT, "hit")}${chips(TODO, "todo")}</div>
-    </div>
-  </div>
-</section>
-
 <section class="sec" ${attrs("steel")}>
   <div class="inner">
     <div class="split">
@@ -299,7 +309,7 @@ footer .sp{margin:0 9px;opacity:.35}
         one of them fair. It runs right here in your browser, and nothing you do leaves your device.</p>
         <div class="cta"><a class="btn" href="/decide-already/">Open Decide Already</a></div></div>
       </div>
-      <div class="reveal d2 flipwrap">${pennyFlip}</div>
+      <div class="reveal d2">${wheel}</div>
     </div>
   </div>
 </section>
@@ -310,13 +320,13 @@ footer .sp{margin:0 9px;opacity:.35}
       <div>
         <div class="reveal"><div class="kicker">Live on the web</div>
         <h2>You In?</h2></div>
-        <div class="reveal d1"><p class="lede">Not my trip, anyone's. Sign in, list the places you
-        want to go, and share the link. Friends can drop a tip in the comments or quietly volunteer
-        to come along, and only you see who did. Anyone can start their own board for their own
-        reasons, it isn't just mine.</p>
+        <div class="reveal d1"><p class="lede">A shared board for a trip, built for more than one
+        person. List where you want to go and share the link, and anyone who opens it can comment
+        or quietly volunteer to come along, no account needed on their end. Only the board's owner
+        sees who volunteered, and anyone can start their own board for any trip.</p>
         <div class="cta"><a class="btn" href="https://you-in-app.vercel.app">Open You In?</a></div></div>
       </div>
-      <div class="reveal d2 printswrap">${footprints}</div>
+      <div class="reveal d2">${board}</div>
     </div>
   </div>
 </section>
@@ -326,9 +336,9 @@ footer .sp{margin:0 9px;opacity:.35}
     <div class="reveal"><div class="kicker">How I build</div>
     <h2>Only what the app actually needs</h2></div>
     <div class="reveal d1"><p class="lede">These apps work in different ways. ScripBook and Decide
-    Already keep everything on your device and never speak to a server. Hit 50 is a public page built
-    to be shared. What they have in common is that none of them takes anything it doesn't need to
-    work.</p>
+    Already keep everything on your device and never speak to a server. You In? is a shared, public
+    board, so it needs an account for whoever's running it and nothing more than a link for anyone
+    else. What they have in common is that none of them takes anything it doesn't need to work.</p>
     <ul class="plain">
       <li><span class="tick">01</span><span><b>No ads.</b> Not now, not later, not as a
       subscription you can pay to remove</span></li>
@@ -347,7 +357,6 @@ footer .sp{margin:0 9px;opacity:.35}
 <footer>
   Prits Apps LLC<span class="sp">·</span>
   <a href="/scripbook/">ScripBook</a><span class="sp">·</span>
-  <a href="https://hit-50-before-30.vercel.app">Hit 50 Before 30</a><span class="sp">·</span>
   <a href="/decide-already/">Decide Already</a><span class="sp">·</span>
   <a href="https://you-in-app.vercel.app">You In?</a><span class="sp">·</span>
   <a href="/privacy/">Privacy</a><span class="sp">·</span>
@@ -377,7 +386,7 @@ footer .sp{margin:0 9px;opacity:.35}
       if(e.isIntersecting){ e.target.classList.add('in'); show.unobserve(e.target); }
     });
   }, { threshold:0.18, rootMargin:'0px 0px -8% 0px' });
-  document.querySelectorAll('.reveal,.month,.map,.sec').forEach(function(el){ show.observe(el); });
+  document.querySelectorAll('.reveal,.month,.sec').forEach(function(el){ show.observe(el); });
 
   var prog = document.getElementById('prog');
   window.addEventListener('scroll', function(){
