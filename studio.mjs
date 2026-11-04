@@ -25,8 +25,8 @@ const OUT = process.env.OUT || "index.html";
 const P = {
   ink:    { bg:"#0E1014", surf:"#181B21", accent:ACCENT,   ink:"#E9EBF0" },
   slate:  { bg:"#13161B", surf:"#1D2128", accent:"#E8C547", ink:"#E9EBF0" },  // ScripBook
-  steel:  { bg:"#111316", surf:"#1B1E23", accent:"#C45F35", ink:"#E9EBF0" },  // Decide Already
-  sunset: { bg:"#FBF3E7", surf:"#F3E6D4", accent:"#D9622B", ink:"#2B1D14" },  // You In?'s own paper
+  steel:  { bg:"#111316", surf:"#1B1E23", accent:"#8C6B35", ink:"#E9EBF0" },  // Decide Already, dark brass
+  sunset: { bg:"#F3E6D4", surf:"#FBF3E7", accent:"#D9622B", ink:"#2B1D14" },  // You In?'s own paper
   coal:   { bg:"#08090B", surf:"#121418", accent:ACCENT,   ink:"#E9EBF0" },
 };
 const muted = (hex) => {
@@ -66,7 +66,7 @@ const footprintsIcon = (size) => `<svg width="${size}" height="${size}" viewBox=
 // template: a title, a done/total bar, and a grid of places each with a
 // done or not-yet badge in the corner. Real paper, real ink, not a logo.
 const board = `<div class="board">
-  <div class="board-top">${footprintsIcon(20)}<b>Pacific Loop</b></div>
+  <div class="board-top">${footprintsIcon(20)}<b>My 2027 List</b></div>
   <div class="board-stats"><span>3 of 6 done</span><span>50%</span></div>
   <div class="board-bar"><i style="width:50%"></i></div>
   <div class="board-grid">
@@ -236,29 +236,30 @@ letter-spacing:.08em;color:#6B6760;margin-bottom:14px}
 .toolsgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .tooltile{background:#FFFFFF;border:1px solid #DDD8CF;border-radius:10px;padding:13px 8px;
 text-align:center;font:600 12px "Space Grotesk",sans-serif;color:#17171A}
-.tooltile.on{background:#B0502A;color:#F5F3EF;border-color:#B0502A}
+.tooltile.on{background:#8C6B35;color:#F5F3EF;border-color:#8C6B35}
 
 /* You In?'s board, the same card as the "Phone Mockup" story template: its
-   own paper-on-paper layering (#FBF3E7 page, #F3E6D4 card), orange for a
-   done place, teal for the progress bar. Real colors, not a logo. */
-.board{background:#F3E6D4;border:1px solid #E6D5BC;border-radius:18px;padding:24px 22px;
+   own paper-on-paper layering: #F3E6D4 page, #FBF3E7 card, white insets.
+   Orange for a done place, teal for the progress bar. Real colors, not a
+   logo. */
+.board{background:#FBF3E7;border:1px solid #E6D5BC;border-radius:18px;padding:24px 22px;
 width:100%;max-width:400px;box-shadow:0 20px 40px rgba(43,29,20,.16);font-family:"Inter",sans-serif}
 .board-top{display:flex;align-items:center;gap:10px;margin-bottom:14px;
 font:600 15px "Space Grotesk",sans-serif;color:#2B1D14}
 .board-stats{display:flex;justify-content:space-between;font:500 11px "IBM Plex Mono",monospace;
 text-transform:uppercase;letter-spacing:.06em;color:#6B5A48}
-.board-bar{height:7px;background:#FBF3E7;border:1px solid #E6D5BC;border-radius:4px;
+.board-bar{height:7px;background:#FFFFFF;border:1px solid #E6D5BC;border-radius:4px;
 margin:8px 0 18px;overflow:hidden}
 .board-bar i{display:block;height:100%;background:#1F7A8C}
 .board-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.tile{position:relative;background:#FBF3E7;border:1px solid #E6D5BC;border-radius:13px;
+.tile{position:relative;background:#FFFFFF;border:1px solid #E6D5BC;border-radius:13px;
 padding:16px 14px;min-height:76px}
 .tile s{display:block;font:500 10px "IBM Plex Mono",monospace;text-transform:uppercase;
 letter-spacing:.05em;color:#6B5A48;text-decoration:none}
 .tile b{display:block;font:600 18px "Space Grotesk",sans-serif;color:#2B1D14;margin-top:8px}
 .tile .badge{position:absolute;top:-12px;right:-10px;width:30px;height:30px;border-radius:50%;
 display:flex;align-items:center;justify-content:center;font-size:13px;color:#1F7A8C}
-.tile.done .badge{background:#FBF3E7;border:2px solid #1F7A8C}
+.tile.done .badge{background:#FFFFFF;border:2px solid #1F7A8C}
 .tile:not(.done) .badge{border:2px dashed #E6D5BC}
 
 footer{padding:66px 30px 88px;text-align:center;color:var(--muted);
