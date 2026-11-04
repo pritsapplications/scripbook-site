@@ -18,13 +18,16 @@ const ACCENT = process.env.ACCENT || "#C2D6DE";   // the one color the studio ow
 const OUT = process.env.OUT || "index.html";
 
 // A tonal run through neutrals rather than a tour of other people's palettes.
-// Each app's own colour appears only as an accent, never as the ground.
+// Each app's own colour appears only as an accent, never as the ground. You
+// In?'s own site is the one that isn't dark, the same exception Hit 50 used
+// to be, so its section runs on its real Sunset Runway paper instead of
+// pretending to be graphite like everything else here.
 const P = {
-  ink:   { bg:"#0E1014", surf:"#181B21", accent:ACCENT,   ink:"#E9EBF0" },
-  slate: { bg:"#13161B", surf:"#1D2128", accent:"#E8C547", ink:"#E9EBF0" },  // ScripBook
-  steel: { bg:"#111316", surf:"#1B1E23", accent:"#D0703F", ink:"#E9EBF0" },  // Decide Already
-  tide:  { bg:"#101317", surf:"#1A1E22", accent:"#D9622B", ink:"#E9EBF0" },  // You In?, its own orange
-  coal:  { bg:"#08090B", surf:"#121418", accent:ACCENT,   ink:"#E9EBF0" },
+  ink:    { bg:"#0E1014", surf:"#181B21", accent:ACCENT,   ink:"#E9EBF0" },
+  slate:  { bg:"#13161B", surf:"#1D2128", accent:"#E8C547", ink:"#E9EBF0" },  // ScripBook
+  steel:  { bg:"#111316", surf:"#1B1E23", accent:"#C45F35", ink:"#E9EBF0" },  // Decide Already
+  sunset: { bg:"#FBF3E7", surf:"#F3E6D4", accent:"#D9622B", ink:"#2B1D14" },  // You In?'s own paper
+  coal:   { bg:"#08090B", surf:"#121418", accent:ACCENT,   ink:"#E9EBF0" },
 };
 const muted = (hex) => {
   const n = parseInt(hex.slice(1), 16);
@@ -38,20 +41,20 @@ const attrs = (k) =>
 // between two lowercase words reads the way developers already name things, so
 // it says "software" without an icon, a metaphor, or a borrowed grid.
 
-// Decide Already's own wheel, a preview card rather than a lone icon, same
-// idea as ScripBook's month below. The card and wheel colors are lifted
-// straight from the app's own light theme (src/theme.js), not invented for
-// the site, so it reads as the actual tool rather than a logo standing in
-// for it.
-const wheel = `<div class="wheelcard">
-  <div class="wheel-dial"><div class="wheel-pointer"></div><div class="wheel-ball"></div></div>
-  <div class="wheel-row"><span class="pill">Penny</span><span class="pill">Dice</span>
-  <span class="pill active">Wheel</span><span class="pill">Straws</span></div>
+// Decide Already's own tools, all eleven of them, straight out of src/tools.js
+// in home-screen order. A showcase of the picker rather than one method
+// standing in for the rest, in the app's real light-theme colors.
+const DECIDE_TOOLS = ["Penny", "Dice", "Wheel", "Ask the ball", "Finger picker",
+  "Draw straws", "Spin the bottle", "Number", "Bracket", "Teams", "Yes or no"];
+const tools = `<div class="toolscard">
+  <div class="cap">11 ways to decide</div>
+  <div class="toolsgrid">${DECIDE_TOOLS.map((t, i) =>
+    `<div class="tooltile${i === 2 ? " on" : ""}">${t}</div>`).join("")}</div>
 </div>`;
 
 // You In?'s own mark, two footprints walking together, sized down to sit in
 // a header rather than stand alone. Orange and teal are the app's real
-// colors, hardcoded the same way the wheel's copper is above.
+// colors, hardcoded the same way the tool tiles' copper is above.
 const footprintsIcon = (size) => `<svg width="${size}" height="${size}" viewBox="0 0 64 64" aria-hidden="true">
   <g fill="#D9622B"><ellipse cx="24" cy="38" rx="6" ry="9" transform="rotate(-10 24 38)"/>
   <circle cx="20" cy="27" r="2"/><circle cx="24" cy="25" r="2"/><circle cx="28" cy="26" r="2"/></g>
@@ -59,15 +62,19 @@ const footprintsIcon = (size) => `<svg width="${size}" height="${size}" viewBox=
   <circle cx="36" cy="40" r="2"/><circle cx="40" cy="42" r="2"/><circle cx="44" cy="41" r="2"/></g>
 </svg>`;
 
-// You In?'s own board, a preview card in the app's actual paper and ink,
-// the same approach as the wheel above: real colors, not a logo.
+// You In?'s own board, the same card shown on the "Phone Mockup" story
+// template: a title, a done/total bar, and a grid of places each with a
+// done or not-yet badge in the corner. Real paper, real ink, not a logo.
 const board = `<div class="board">
-  <div class="board-top">${footprintsIcon(22)}<b>Pacific Loop</b></div>
-  <div class="board-row"><span class="chk">&#10003;</span>Olympic National Park</div>
-  <div class="board-row"><span class="chk">&#10003;</span>Mount Rainier</div>
-  <div class="board-row"><span class="vol">+2</span>North Cascades</div>
-  <div class="board-row"><span class="vol">+1</span>San Juan Islands</div>
-  <div class="board-link">you-in-app.vercel.app/b/pacific-loop</div>
+  <div class="board-top">${footprintsIcon(20)}<b>Pacific Loop</b></div>
+  <div class="board-stats"><span>3 of 6 done</span><span>50%</span></div>
+  <div class="board-bar"><i style="width:50%"></i></div>
+  <div class="board-grid">
+    <div class="tile done"><span class="badge">&#10003;</span><s>done</s><b>Lisbon</b></div>
+    <div class="tile"><span class="badge"></span><s>not yet</s><b>Kyoto</b></div>
+    <div class="tile"><span class="badge"></span><s>not yet</s><b>Oaxaca</b></div>
+    <div class="tile done"><span class="badge">&#10003;</span><s>done</s><b>Marrakech</b></div>
+  </div>
 </div>`;
 const logo = (cls = "") => `<span class="logo ${cls}">prits<i>.</i>apps</span>`;
 
@@ -219,40 +226,40 @@ ul.plain b{color:var(--ink);font-weight:600}
 .tick{font:500 12px "IBM Plex Mono",monospace;color:var(--accent);flex:none;width:18px;
 padding-top:3px;transition:color .8s}
 
-/* Decide Already's wheel, lifted from its own light theme: #F5F3EF ground,
-   #B0502A copper, #17171A ink. A card rather than a lone icon, same move as
-   ScripBook's month and You In?'s board below. */
-.wheelcard{background:#F5F3EF;border:1px solid #DDD8CF;border-radius:16px;padding:26px 24px;
-width:100%;max-width:400px;box-shadow:0 22px 50px rgba(0,0,0,.45);
-display:flex;flex-direction:column;align-items:center;gap:18px}
-.wheel-dial{width:150px;height:150px;border-radius:50%;position:relative;
-box-shadow:inset 0 0 0 1px #DDD8CF;
-background:conic-gradient(#E6E1D8 0deg 60deg,#D6CFC3 60deg 120deg,#C7BEB0 120deg 180deg,
-#B0502A 180deg 240deg,#D6CFC3 240deg 300deg,#E6E1D8 300deg 360deg)}
-.wheel-ball{position:absolute;top:50%;left:50%;width:22px;height:22px;border-radius:50%;
-background:#17171A;transform:translate(-50%,-50%);box-shadow:0 2px 6px rgba(0,0,0,.35)}
-.wheel-pointer{position:absolute;top:-8px;left:50%;width:0;height:0;transform:translateX(-50%);
-border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:14px solid #17171A}
-.wheel-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.pill{font:500 11.5px "IBM Plex Mono",monospace;letter-spacing:.04em;padding:7px 11px;
-border-radius:7px;background:#ECE8E1;color:#6B6760}
-.pill.active{background:#B0502A;color:#F5F3EF}
+/* Decide Already's tools, lifted from its own light theme: #F5F3EF ground,
+   #B0502A copper, #17171A ink. All eleven, same move as ScripBook's month
+   below: a card that shows the actual product instead of a logo. */
+.toolscard{background:#F5F3EF;border:1px solid #DDD8CF;border-radius:16px;padding:24px;
+width:100%;max-width:400px;box-shadow:0 22px 50px rgba(0,0,0,.45)}
+.toolscard .cap{font:500 11px "IBM Plex Mono",monospace;text-transform:uppercase;
+letter-spacing:.08em;color:#6B6760;margin-bottom:14px}
+.toolsgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.tooltile{background:#FFFFFF;border:1px solid #DDD8CF;border-radius:10px;padding:13px 8px;
+text-align:center;font:600 12px "Space Grotesk",sans-serif;color:#17171A}
+.tooltile.on{background:#B0502A;color:#F5F3EF;border-color:#B0502A}
 
-/* You In?'s board, in its own paper and ink: #FBF3E7, #2B1D14, orange for a
-   done place, teal for a volunteer. The same real-colors-not-a-logo move. */
-.board{background:#FBF3E7;border:1px solid #E6D5BC;border-radius:16px;padding:22px 24px;
-width:100%;max-width:400px;box-shadow:0 22px 50px rgba(0,0,0,.45);font-family:"Inter",sans-serif}
+/* You In?'s board, the same card as the "Phone Mockup" story template: its
+   own paper-on-paper layering (#FBF3E7 page, #F3E6D4 card), orange for a
+   done place, teal for the progress bar. Real colors, not a logo. */
+.board{background:#F3E6D4;border:1px solid #E6D5BC;border-radius:18px;padding:24px 22px;
+width:100%;max-width:400px;box-shadow:0 20px 40px rgba(43,29,20,.16);font-family:"Inter",sans-serif}
 .board-top{display:flex;align-items:center;gap:10px;margin-bottom:14px;
 font:600 15px "Space Grotesk",sans-serif;color:#2B1D14}
-.board-row{display:flex;align-items:center;gap:10px;padding:9px 0;font-size:14.5px;
-color:#2B1D14;border-top:1px solid #E6D5BC}
-.board-row:first-of-type{border-top:none}
-.chk{width:20px;height:20px;border-radius:50%;background:#D9622B;color:#FBF3E7;
-font:700 11px/20px "Inter",sans-serif;text-align:center;flex:none}
-.vol{min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:#1F7A8C;color:#FBF3E7;
-font:700 11px/20px "IBM Plex Mono",monospace;text-align:center;flex:none}
-.board-link{margin-top:14px;padding-top:12px;border-top:1px dashed #E6D5BC;
-font:500 11.5px "IBM Plex Mono",monospace;letter-spacing:.03em;color:#6B5A48}
+.board-stats{display:flex;justify-content:space-between;font:500 11px "IBM Plex Mono",monospace;
+text-transform:uppercase;letter-spacing:.06em;color:#6B5A48}
+.board-bar{height:7px;background:#FBF3E7;border:1px solid #E6D5BC;border-radius:4px;
+margin:8px 0 18px;overflow:hidden}
+.board-bar i{display:block;height:100%;background:#1F7A8C}
+.board-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tile{position:relative;background:#FBF3E7;border:1px solid #E6D5BC;border-radius:13px;
+padding:16px 14px;min-height:76px}
+.tile s{display:block;font:500 10px "IBM Plex Mono",monospace;text-transform:uppercase;
+letter-spacing:.05em;color:#6B5A48;text-decoration:none}
+.tile b{display:block;font:600 18px "Space Grotesk",sans-serif;color:#2B1D14;margin-top:8px}
+.tile .badge{position:absolute;top:-12px;right:-10px;width:30px;height:30px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;font-size:13px;color:#1F7A8C}
+.tile.done .badge{background:#FBF3E7;border:2px solid #1F7A8C}
+.tile:not(.done) .badge{border:2px dashed #E6D5BC}
 
 footer{padding:66px 30px 88px;text-align:center;color:var(--muted);
 font:400 13.5px "IBM Plex Mono",monospace}
@@ -309,12 +316,12 @@ footer .sp{margin:0 9px;opacity:.35}
         one of them fair. It runs right here in your browser, and nothing you do leaves your device.</p>
         <div class="cta"><a class="btn" href="/decide-already/">Open Decide Already</a></div></div>
       </div>
-      <div class="reveal d2">${wheel}</div>
+      <div class="reveal d2">${tools}</div>
     </div>
   </div>
 </section>
 
-<section class="sec" ${attrs("tide")}>
+<section class="sec" ${attrs("sunset")}>
   <div class="inner">
     <div class="split">
       <div>
