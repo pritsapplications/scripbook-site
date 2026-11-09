@@ -269,7 +269,13 @@ ${sec("privacy","green","Your data","Nothing leaves your phone",
   <li><span class="no">✕</span><span>No linking your bank. We never ask for <b>credentials we shouldn't have</b></span></li>
   <li><span class="no">✕</span><span>No trackers, no ads, no anonymous usage data that <b>isn't very anonymous</b></span></li>
   <li><span class="yes">✓</span><span>Everything stays in the app and <b>leaves only when you export it</b></span></li>
-</ul></div>`)}
+</ul></div>
+<div class="reveal d3" style="margin-top:34px"><p>Already keep this in a spreadsheet?
+The converter turns a CSV into a ScripBook backup <b>in your browser</b>, on the same
+principle as the app: the file never reaches us, because there's nothing to reach.</p>
+<div class="cta" style="margin-top:20px">
+  <a class="btn ghost" href="/scripbook/import/">Convert a spreadsheet</a>
+</div></div>`)}
 
 ${sec("streak","pink","How it treats you","A streak that isn't a trap",
 "It counts days you kept track, not days you spent less. Logging a big expense keeps it alive exactly as well as spending nothing. Miss a day and it survives.",
